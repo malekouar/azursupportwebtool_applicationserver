@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{fragments/main_layout}">
+<head>
+<title>Spring Boot Thymeleaf + Spring Security</title>
+</head>
+<body>
+	<div layout:fragment="content">
+
+		<div th:switch="${users}" class="container my-5">
+			</br>
+			</br>
+			</br>
+			<div class="jumbotron">
+				<h3 class="display-4">Bienvenue sur XSup WebTool !</h3>
+				<br/>
+				<p class="lead">
+					XSup WebTool est d&eacute;di&eacute; &agrave; la configuration des applications clientes, du suivi des dossiers, des deploiements et des versions.
+				</p>
+				<p class="lead">
+					Cette V0.1 permet l'initialisation des configuration des serveurs clients, des version SVN prod et le suivi des livraisons.
+				</p>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

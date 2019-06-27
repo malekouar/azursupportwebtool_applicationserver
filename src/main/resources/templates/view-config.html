@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{fragments/main_layout}">
+    <head>
+        <title>Consulter configuration</title>
+    </head>
+    <body>
+        <div layout:fragment="content" class="container my-5">
+            <h2 class="mb-5">Consultation configuration</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <form action="#" th:action="@{/config/update/{id}(id=${config.id})}" th:object="${config}" method="post">                
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="teamviewerId" class="col-form-label">TeamViewer ID</label>
+                                <input readonly="readonly" type="text" th:field="*{teamviewerId}" class="form-control" id="teamviewerId" >
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="teamviewerPassword" class="col-form-label">TeamViewer Mot de passe</label>
+                                <input readonly="readonly" type="text" th:field="*{teamviewerPassword}" class="form-control" id="teamviewerPassword" >
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="vpnType" class="col-form-label">Type VPN</label>
+                                <input readonly="readonly" type="text" th:field="*{vpnType}" class="form-control" id="vpnType" >
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="vpnIp" class="col-form-label">IP VPN</label>
+                                <input readonly="readonly" type="text" th:field="*{vpnIp}" class="form-control" id="vpnIp" >
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="vpnLogin" class="col-form-label">Login VPN</label>
+                                <input readonly="readonly" type="text" th:field="*{vpnLogin}" class="form-control" id="vpnLogin" >
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="vpnPassword" class="col-form-label">Mot de passe VPN</label>
+                                <input readonly="readonly" type="text" th:field="*{vpnPassword}" class="form-control" id="vpnPassword" >
+                            </div>
+                        </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

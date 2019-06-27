@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{fragments/main_layout}">
+    <head>
+        <title>Consulter client</title>
+    </head>
+    <body>
+        <div layout:fragment="content" class="container my-5">
+            <h2 class="mb-5">Consultation client</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <form action="#" th:action="@{/client/update/{id}(id=${client.id})}" th:object="${client}" method="post">                
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="raisonSociale" class="col-form-label">Raison Sociale</label>
+                                <input readonly="readonly" type="text" th:field="*{raisonSociale}" class="form-control" id="raisonSociale" >
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="contact" class="col-form-label">Contact</label>
+                                <input readonly="readonly" type="text" th:field="*{contact}" class="form-control" id="contact" >
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="tel" class="col-form-label">Telephone</label>
+                                <input readonly="readonly" type="text" th:field="*{tel}" class="form-control" id="tel" >
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="mobile" class="col-form-label">Mobile</label>
+                                <input readonly="readonly" type="text" th:field="*{mobile}" class="form-control" id="mobile" >
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="email" class="col-form-label">Email</label>
+                                <input readonly="readonly" type="text" th:field="*{email}" class="form-control" id="email" >
+                            </div>
+                        </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

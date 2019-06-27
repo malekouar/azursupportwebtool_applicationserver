@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{fragments/main_layout}">
+<head>
+<title>Liste des Configs</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div th:switch="${configs}" class="container my-5">
+			<div>
+				<h2 th:case="null">Pas encore de config !</h2>
+				<div th:case="*">
+					<h2 class="my-6">Liste des configs</h2>
+					<div>
+						<a th:href="@{/config/new}" class="badge badge-warning">Ajouter une config</a>
+					</div>
+					<br />
+					<table class="table table-striped table-responsive-md">
+						<thead>
+							<tr>
+								<th>Teamviewer ID</th>
+								<th>Teamviewer Mot de passe</th>
+								<th>Type de connexion VPN</th>
+								<th>VPN IP</th>
+								<th>VPN Login</th>
+								<th>VPN Mot de passe</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr th:each="config : ${configs}">							
+								<td th:text="${config.teamviewerId}"></td>
+								<td th:text="${config.teamviewerPassword}"></td>
+								<td th:text="${config.vpnType}"></td>								
+								<td th:text="${config.vpnIp}"></td>
+								<td th:text="${config.vpnLogin}"></td>
+								<td th:text="${config.vpnPassword}"></td>
+								<td>
+								<a th:href="@{/config/view/{id}(id=${config.id})}" class="badge badge-success">Consulter</a>
+								&nbsp;
+								<a th:href="@{/config/edit/{id}(id=${config.id})}" class="badge badge-info">Modifier</a>
+								&nbsp;<a th:href="@{/config/delete/{id}(id=${config.id})}" class="badge badge-danger">Supprimer</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{fragments/main_layout}">
+<head>
+<title>Liste des utilisateurs</title>
+</head>
+<body>
+	<div layout:fragment="content">
+
+		<div th:switch="${users}" class="container my-5">
+			</br>
+			<div class="row">
+				<div class="col-md-6">
+					<h2 th:case="null">Pas encore d'utilisateur!</h2>
+					<div th:case="*">
+						<h2 class="my-6">Utilisateurs</h2>
+						<div>
+							<a href="signup" class="badge badge-warning">Ajouter un
+								utilisateur</a>
+						</div>
+						<br />
+						<table class="table table-striped table-responsive-md">
+							<thead>
+								<tr>
+									<th>Nom</th>
+									<th>Email</th>
+									<th>&nbsp;</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="user : ${users}">
+									<td th:text="${user.name}"></td>
+									<td th:text="${user.email}"></td>
+									<td>
+										<a th:href="@{/edit/{id}(id=${user.id})}"
+										class="badge badge-info">Editer</a>
+										&nbsp;
+										<a th:href="@{/delete/{id}(id=${user.id})}"
+										class="badge badge-danger">Supprimer</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+</body>
+</html>

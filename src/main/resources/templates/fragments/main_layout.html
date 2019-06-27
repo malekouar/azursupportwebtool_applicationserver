@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.w3.org/1999/xhtml">
+	<head>
+	    <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+		<!-- Latest compiled and minified CSS -->
+<!-- 		<link rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+			integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+			crossorigin="anonymous"> -->
+		
+		<link rel="stylesheet" href="../static/css/flatly/bootstrap.min.css" th:href="@{/css/flatly/bootstrap.min.css}"/>			
+		<!-- Optional theme -->
+		<link rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+			integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+			crossorigin="anonymous">
+        <link rel="stylesheet" href="../static/font-awesome-4.7.0/css/font-awesome.min.css" />		
+			
+		<!-- Latest compiled and minified JavaScript -->
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+			integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+			crossorigin="anonymous"></script>
+	</head>
+	<body>
+
+		
+		<!--sidebar.html  that's here  -->	
+<!-- 		<div th:replace="fragments/sidebar :: sidebar"></div>
+ -->	
+		<!--header.html  that's here  -->
+		<div class="container">
+
+		<!--header.html  that's here  -->
+		<div th:replace="fragments/header :: header"></div>
+			
+			<div layout:fragment="content">
+			<!--header.html  that's here  -->
+		</div>
+
+		
+		</div>
+		<!--footer.html  that's here  -->
+		<div th:replace="fragments/footer :: footer"></div>
+	</body>
+</html>
