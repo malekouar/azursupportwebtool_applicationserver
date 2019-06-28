@@ -15,6 +15,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 /**
  * The persistent class for the dossier database table.
@@ -31,6 +33,7 @@ public class Dossier {
 	private long id;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
 	@Column(name="date_debut")
 	private Date dateDebut;
 

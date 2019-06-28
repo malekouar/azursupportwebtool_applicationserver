@@ -1,6 +1,8 @@
 package com.example.tutomvcjpa.controllers;
 
 
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +42,7 @@ public class DossierController {
         if (result.hasErrors()) {
             return "add-dossier";
         }
-
+        dossier.setDateDebut(new Date());
         dossierRepository.save(dossier);
         model.addAttribute("dossiers", dossierRepository.findAll());
         return "dossiers";
