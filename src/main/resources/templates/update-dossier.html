@@ -3,9 +3,6 @@
 	layout:decorate="~{fragments/main_layout}">
 <head>
 <title>Modifier dossier</title>
-<script type="text/javascript">
-$('.datepicker').datepicker();
-</script>
 </head>
 <body>
 	<div layout:fragment="content" class="container my-5">
@@ -18,8 +15,7 @@ $('.datepicker').datepicker();
 					<div class="row">
 							
 						<div class="form-group col-md-6">
-							<label for="dateDebut" class="col-form-label">Date de cr&eacute;ation</label> dateDebut 
-							<p th:text="*{#dates.format(dateDebut, 'dd-MM-yyyy &agrave; HH:mm')}"></p>
+							<label for="dateDebut" class="col-form-label">Date de cr&eacute;ation</label>
 							<input type="text" th:field="*{dateDebut}" class="form-control" id="dateDebut"> 
 						</div>
 						
@@ -43,6 +39,16 @@ $('.datepicker').datepicker();
 							<input type="text" th:field="*{responsable}" class="form-control"
 								id="responsable">
 						</div>
+						<div class="form-group col-md-6">
+							<label for="vpnType" class="col-form-label">Etat du dossier</label> 
+							<select th:field="*{etat.id}"  class="form-control">
+								<option disabled selected th:value="0">Selectionnez un etat d'avancement ...</option>
+								<option th:each="etat : ${etats}"
+	                               			th:value="${etat.id}"
+	                               			th:text="${etat.libelle}">
+	                       		</option>
+							</select>
+						</div>						
 					</div>
 					<div class="row">
 						<div class="col-md-6 mt-5">

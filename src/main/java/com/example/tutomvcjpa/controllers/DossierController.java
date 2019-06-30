@@ -2,6 +2,7 @@ package com.example.tutomvcjpa.controllers;
 
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -14,16 +15,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.tutomvcjpa.entities.Dossier;
+import com.example.tutomvcjpa.entities.Etat;
 import com.example.tutomvcjpa.repositories.DossierRepository;
+import com.example.tutomvcjpa.repositories.EtatRepository;
 
 @Controller
 public class DossierController {
     
     private final DossierRepository dossierRepository;
+    private final EtatRepository etatRepository;
 
     @Autowired
-    public DossierController(DossierRepository dossierRepository) {
+    public DossierController(DossierRepository dossierRepository, EtatRepository etatRepository) {
         this.dossierRepository = dossierRepository;
+        this.etatRepository = etatRepository;
     }
 
     @GetMapping("/dossiers")
@@ -33,7 +38,8 @@ public class DossierController {
     }
 
     @GetMapping("/dossier/new")
-    public String showNewDossierForm(Dossier dossier) {
+    public String showNewDossierForm(Dossier dossier, Model model) {
+    	model.addAttribute("etats", etatRepository.findAll());
         return "add-dossier";
     }
 
@@ -59,6 +65,7 @@ public class DossierController {
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
     	Dossier dossier = dossierRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid dossier Id:" + id));
     	model.addAttribute("dossier", dossier);
+    	model.addAttribute("etats", etatRepository.findAll());    	
     	return "update-dossier";
     }
     

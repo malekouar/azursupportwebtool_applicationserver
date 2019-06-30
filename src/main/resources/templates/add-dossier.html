@@ -35,6 +35,16 @@
                                 <label for="responsable" class="col-form-label">Responsable</label>
                                 <input type="text" th:field="*{responsable}" class="form-control" id="responsable" >
                             </div>
+ 							<div class="form-group col-md-6">
+								<label for="vpnType" class="col-form-label">Etat du dossier</label> 
+								<select th:field="*{etat.id}"  class="form-control">
+									<option disabled selected th:value="0">Selectionnez un etat d'avancement ...</option>
+									<option th:each="etat : ${etats}"
+                                 			th:value="${etat.id}"
+                                 			th:text="${etat.libelle}">
+                         			</option>
+								</select>
+							</div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mt-5">
