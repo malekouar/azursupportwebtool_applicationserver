@@ -1,6 +1,11 @@
 package com.example.tutomvcjpa.controllers;
 
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +31,10 @@ public class UserController {
 
     @GetMapping("/")
     public String getHome(Model model) {
-        //model.addAttribute("users", userRepository.findAll());
+    	model.addAttribute("standardDate", new Date());
+    	model.addAttribute("localDateTime", LocalDateTime.now());
+    	model.addAttribute("localDate", LocalDate.now());
+    	model.addAttribute("timestamp", Instant.now());
         return "index";
     }
     

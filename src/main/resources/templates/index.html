@@ -3,6 +3,12 @@
 	layout:decorate="~{fragments/main_layout}">
 <head>
 <title>Spring Boot Thymeleaf + Spring Security</title>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<div layout:fragment="content">
@@ -14,6 +20,45 @@
 			<div class="jumbotron">
 				<h3 class="display-4">Bienvenue sur XSup WebTool !</h3>
 				<br/>
+            <br/>
+				
+			<h1>Format ISO</h1>
+            The time is: <p th:text="${#dates.format(now, 'dd/MMM/yyyy HH:mm')}">31/12/2015 15:00</p>
+			
+			<p th:text="*{#dates.formatISO(standardDate)}"></p>
+			<p th:text="${#temporals.formatISO(localDateTime)}"></p>
+			<p th:text="${#temporals.formatISO(localDate)}"></p>
+			<p th:text="${#temporals.formatISO(timestamp)}"></p>
+			
+			<h1>Format manually</h1>
+			<p th:text="${#dates.format(standardDate, 'dd-MM-yyyy HH:mm')}"></p>
+			<p th:text="${#temporals.format(localDateTime, 'dd-MM-yyyy HH:mm')}"></p>
+			<p th:text="${#temporals.format(localDate, 'MM-yyyy')}"></p>
+			
+<!-- 			<h1>Format manually NOW</h1>
+			<p th:text="${#dates.format(now, 'dd-MM-yyyy HH:mm')}"></p>
+			<p th:text="${#temporals.format((now, 'dd-MM-yyyy HH:mm')}"></p>
+			<p th:text="${#temporals.format((now, 'MM-yyyy')}"></p>
+			 -->
+				
+			<h1>Show only which day of a week</h1>
+			<p th:text="${#dates.day(standardDate)}"></p>
+			<p th:text="${#temporals.day(localDateTime)}"></p>
+			<p th:text="${#temporals.day(localDate)}"></p>
+							
+							
+			<h1>Show the name of the week day</h1>
+			<p th:text="${#dates.dayOfWeekName(standardDate)}"></p>
+			<p th:text="${#temporals.dayOfWeekName(localDateTime)}"></p>
+			<p th:text="${#temporals.dayOfWeekName(localDate)}"></p>
+			
+			<h1>Show the second of the day</h1>
+			<p th:text="${#dates.second(standardDate)}"></p>
+			<p th:text="${#temporals.second(localDateTime)}"></p>			
+			
+		   *********************************************
+		    <input id="datepicker" width="276" />
+		    
 				<p class="lead">
 					XSup WebTool est d&eacute;di&eacute; &agrave; la configuration des applications clientes, du suivi des dossiers, des deploiements et des versions.
 				</p>

@@ -1,8 +1,24 @@
 <!DOCTYPE html>
 
-<div th:fragment="footer" class="footer"
-	xmlns:th="http://www.w3.org/1999/xhtml">
+<div th:fragment="footer" class="footer" xmlns:th="http://www.w3.org/1999/xhtml">
 	<div class="container">
 		<span class="text-muted">XSup WebTool - Groupe T2i &copy; 2019 @groupe-t2i</span>
-	</div>
+	</div>	
+	
+	<script>
+	    $('#datepicker').datepicker({
+	    	//locale: 'fr-fr',
+	    	//languages: 'fr-FR',
+	    	format: 'dd-mm-yyyy HH:MM:ss',
+	        uiLibrary: 'bootstrap4'
+	    });
+	    
+	    $('#dateDebut').datepicker({
+	    	//locale: 'fr-fr',
+	    	//format: 'dd-mm-yyyy HH:MM:SS',
+	        //uiLibrary: 'bootstrap4'
+	    });
+	    
+	</script>
+
 </div>

@@ -11,19 +11,26 @@
                 <div class="col-md-6">
                     <form action="#" th:action="@{/dossier/add}" th:object="${dossier}" method="post">
                         <div class="row">
-						<div class="form-group col-md-6">
-							<label for="vpnType" class="col-form-label">Type</label> 
-							<select th:field="*{type}"  class="form-control">
-								<option selected th:value="''">Selectionnez un client VPN ...</option>
-								<option th:value="'Azimut'" 	th:text="'Azimut'"></option>
-								<option th:value="'Redmine'" 	th:text="'Redmine'"></option>
-								<option th:value="'Akuiteo'" 	th:text="'Akuiteo'"></option>
-							</select>
-						</div>
-						<div class="form-group col-md-6">
-                                <label for="vpnIp" class="col-form-label">Url</label>
-                                <input type="text" th:field="*{urlAkuiteo}" class="form-control" id="urlAkuiteo" >
-                            </div>
+                        
+							<div class="form-group col-md-6">
+								<label for="dateDebut" class="col-form-label">Date de cr&eacute;ation</label> 
+								<input type="text" th:field="*{dateDebut}" class="form-control" id="dateDebut"> 
+							</div>                        
+                        
+							<div class="form-group col-md-6">
+								<label for="vpnType" class="col-form-label">Type</label> 
+								<select th:field="*{type}"  class="form-control">
+									<option selected th:value="''">Selectionnez un client VPN ...</option>
+									<option th:value="'Azimut'" 	th:text="'Azimut'"></option>
+									<option th:value="'Redmine'" 	th:text="'Redmine'"></option>
+									<option th:value="'Akuiteo'" 	th:text="'Akuiteo'"></option>
+								</select>
+							</div>
+							
+							<div class="form-group col-md-6">
+	                                <label for="vpnIp" class="col-form-label">Url</label>
+	                                <input type="text" th:field="*{urlAkuiteo}" class="form-control" id="urlAkuiteo" >
+	                        </div>
                             <div class="form-group col-md-6">
                                 <label for="responsable" class="col-form-label">Responsable</label>
                                 <input type="text" th:field="*{responsable}" class="form-control" id="responsable" >
