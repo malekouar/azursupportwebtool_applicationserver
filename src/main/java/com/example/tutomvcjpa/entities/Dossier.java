@@ -44,6 +44,9 @@ public class Dossier {
 	@NotBlank(message = "Responsable obligatoire")
 	private String responsable;
 
+	@NotBlank(message = "reference obligatoire")
+	private String reference;
+	
 	@NotBlank(message = "type obligatoire")
 	private String type;
 
@@ -58,10 +61,12 @@ public class Dossier {
 
 	//bi-directional many-to-one association to Client
 	@ManyToOne
+//	@NotBlank(message = "type obligatoire")	
 	private Client client;
 
 	//bi-directional many-to-one association to Etat
 	@ManyToOne
+//	@NotBlank(message = "type obligatoire")	
 	private Etat etat;
 
 	//bi-directional many-to-one association to Intervention
@@ -172,5 +177,13 @@ public class Dossier {
 
 		return intervention;
 	}
+
+	public String getReference() {
+		return reference;
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
+	}	
 
 }

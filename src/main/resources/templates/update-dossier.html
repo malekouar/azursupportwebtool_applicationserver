@@ -13,7 +13,19 @@
 					th:action="@{/dossier/update/{id}(id=${dossier.id})}"
 					th:object="${dossier}" method="post">
 					<div class="row">
-							
+
+						<div class="form-group col-md-6">
+							<label for="client.raisonSociale" class="col-form-label">Client</label> 
+								<input type="hidden" th:field="*{client.id}" class="form-control" id="client.id"/>
+								<input readonly="readonly" type="text" disabled th:field="*{client.raisonSociale}" class="form-control" id="client.raisonSociale"/>
+								<!-- <p th:text="*{client.raisonSociale}"></p> -->
+						</div>
+                        <div class="form-group col-md-6">
+                            <label for="reference" class="col-form-label">R&eacute;f&eacute;rence (N&deg;)</label>
+                            <!-- <p th:text="*{reference}"></p> -->
+                            <input type="text" readonly="readonly"  th:field="*{reference}" class="form-control" id="reference" >
+                            <!-- <span th:if="${#fields.hasErrors('reference')}" th:errors="*{reference}" class="text-danger"></span> -->
+                        </div>
 						<div class="form-group col-md-6">
 							<label for="dateDebut" class="col-form-label">Date de cr&eacute;ation</label>
 							<input type="text" th:field="*{dateDebut}" class="form-control" id="dateDebut"> 
@@ -22,8 +34,7 @@
 						<div class="form-group col-md-6">
 							<label for="vpnType" class="col-form-label">Type</label> <select
 								th:field="*{type}" class="form-control">
-								<option selected th:value="''">Selectionnez un client
-									VPN ...</option>
+								<option selected th:value="''">Selectionnez un client VPN ...</option>
 								<option th:value="'Azimut'" th:text="'Azimut'"></option>
 								<option th:value="'Redmine'" th:text="'Redmine'"></option>
 								<option th:value="'Akuiteo'" th:text="'Akuiteo'"></option>
@@ -40,7 +51,7 @@
 								id="responsable">
 						</div>
 						<div class="form-group col-md-6">
-							<label for="vpnType" class="col-form-label">Etat du dossier</label> 
+							<label for="etat" class="col-form-label">Etat du dossier</label> 
 							<select th:field="*{etat.id}"  class="form-control">
 								<option disabled selected th:value="0">Selectionnez un etat d'avancement ...</option>
 								<option th:each="etat : ${etats}"

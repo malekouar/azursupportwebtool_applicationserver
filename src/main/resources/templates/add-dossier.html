@@ -11,7 +11,22 @@
                 <div class="col-md-6">
                     <form action="#" th:action="@{/dossier/add}" th:object="${dossier}" method="post">
                         <div class="row">
-                        
+ 							<div class="form-group col-md-6">
+								<label for="vpnType" class="col-form-label">Client</label> 
+								<select th:field="*{client.id}"  class="form-control">
+									<option disabled selected th:value="0">Selectionnez un client ...</option>
+									<option th:each="client : ${clients}"
+                                 			th:value="${client.id}"
+                                 			th:text="${client.raisonSociale}">
+                         			</option>
+								</select>
+								<!-- <span th:if="${#fields.hasErrors('client')}" th:errors="*{client}" class="text-danger"></span> -->
+							</div>  
+                            <div class="form-group col-md-6">
+                                <label for="reference" class="col-form-label">R&eacute;f&eacute;rence (N&deg;)</label>
+                                <input type="text" th:field="*{reference}" class="form-control" id="reference" >
+                                <span th:if="${#fields.hasErrors('reference')}" th:errors="*{reference}" class="text-danger"></span>
+                            </div>						                      
 							<div class="form-group col-md-6">
 								<label for="dateDebut" class="col-form-label">Date de cr&eacute;ation</label> 
 								<input type="text" th:field="*{dateDebut}" class="form-control" id="dateDebut"> 
@@ -44,6 +59,7 @@
                                  			th:text="${etat.libelle}">
                          			</option>
 								</select>
+								<!-- <span th:if="${#fields.hasErrors('etat')}" th:errors="*{etat}" class="text-danger"></span> -->								
 							</div>
                         </div>
                         <div class="row">

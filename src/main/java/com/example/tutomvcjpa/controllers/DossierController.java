@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.tutomvcjpa.entities.Dossier;
 import com.example.tutomvcjpa.entities.Etat;
+import com.example.tutomvcjpa.repositories.ClientRepository;
 import com.example.tutomvcjpa.repositories.DossierRepository;
 import com.example.tutomvcjpa.repositories.EtatRepository;
 
@@ -23,11 +24,13 @@ import com.example.tutomvcjpa.repositories.EtatRepository;
 public class DossierController {
     
     private final DossierRepository dossierRepository;
+    private final ClientRepository clientRepository;
     private final EtatRepository etatRepository;
 
     @Autowired
-    public DossierController(DossierRepository dossierRepository, EtatRepository etatRepository) {
+    public DossierController(DossierRepository dossierRepository, ClientRepository clientRepository, EtatRepository etatRepository) {
         this.dossierRepository = dossierRepository;
+        this.clientRepository = clientRepository;
         this.etatRepository = etatRepository;
     }
 
@@ -39,13 +42,16 @@ public class DossierController {
 
     @GetMapping("/dossier/new")
     public String showNewDossierForm(Dossier dossier, Model model) {
+    	model.addAttribute("clients", clientRepository.findAll());
     	model.addAttribute("etats", etatRepository.findAll());
         return "add-dossier";
     }
 
-    @PostMapping("/dossier/add")
-    public String addDossier(@Valid Dossier dossier, BindingResult result, Model model) {
+    @PostMapping("/dossier/add/{idclient}")
+    public String addDossier(@Valid Dossier dossier, BindingResult result, Model model, @PathVariable("idclient") long idclient) {
         if (result.hasErrors()) {
+        	model.addAttribute("client", clientRepository.findById(idclient).orElseThrow(() -> new IllegalArgumentException("Invalid dossier Id:" + idclient)));
+        	model.addAttribute("etats", etatRepository.findAll());        	
             return "add-dossier";
         }
         dossier.setDateDebut(new Date());
