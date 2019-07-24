@@ -45,8 +45,8 @@ public class Config {
 	private String vpnType;
 
 	//bi-directional many-to-one association to Serveur
-	@OneToMany(mappedBy="config")
-	private List<Serveur> serveurs;
+//	@OneToMany(mappedBy="config")
+//	private List<Serveur> serveurs;
 
 	//bi-directional one-to-one association to Client
 	@OneToOne
@@ -111,27 +111,27 @@ public class Config {
 		this.vpnType = vpnType;
 	}
 
-	public List<Serveur> getServeurs() {
-		return this.serveurs;
-	}
+//	public List<Serveur> getServeurs() {
+//		return this.serveurs;
+//	}
+//
+//	public void setServeurs(List<Serveur> serveurs) {
+//		this.serveurs = serveurs;
+//	}
 
-	public void setServeurs(List<Serveur> serveurs) {
-		this.serveurs = serveurs;
-	}
-
-	public Serveur addServeur(Serveur serveur) {
-		getServeurs().add(serveur);
-		serveur.setConfig(this);
-
-		return serveur;
-	}
-
-	public Serveur removeServeur(Serveur serveur) {
-		getServeurs().remove(serveur);
-		serveur.setConfig(null);
-
-		return serveur;
-	}
+//	public Serveur addServeur(Serveur serveur) {
+//		getServeurs().add(serveur);
+//		serveur.setConfig(this);
+//
+//		return serveur;
+//	}
+//
+//	public Serveur removeServeur(Serveur serveur) {
+//		getServeurs().remove(serveur);
+//		serveur.setConfig(null);
+//
+//		return serveur;
+//	}
 
 	public Client getClient() {
 		return this.client;
@@ -145,7 +145,7 @@ public class Config {
 	public String toString() {
 		return "Config [id=" + id + ", teamviewerId=" + teamviewerId + ", teamviewerPassword=" + teamviewerPassword
 				+ ", vpnIp=" + vpnIp + ", vpnLogin=" + vpnLogin + ", vpnPassword=" + vpnPassword + ", vpnType="
-				+ vpnType + ", serveurs=" + serveurs + ", client=" + client + "]";
+				+ vpnType + ", client=" + client + "]";
 	}
 
 }

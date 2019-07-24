@@ -42,9 +42,13 @@ public class Serveur {
 	@Column(name="serveur_type")
 	private String serveurType;
 
-	//bi-directional many-to-one association to Config
+	//bi-directional many-to-one association to Client
 	@ManyToOne
-	private Config config;
+	private Client client;
+	
+	//bi-directional many-to-one association to Config
+//	@ManyToOne
+//	private Config config;
 
 	public Serveur() {
 	}
@@ -97,12 +101,20 @@ public class Serveur {
 		this.serveurType = serveurType;
 	}
 
-	public Config getConfig() {
-		return this.config;
+//	public Config getConfig() {
+//		return this.config;
+//	}
+//
+//	public void setConfig(Config config) {
+//		this.config = config;
+//	}
+
+	public Client getClient() {
+		return client;
 	}
 
-	public void setConfig(Config config) {
-		this.config = config;
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 }

@@ -6,24 +6,36 @@
     </head>
     <body>
         <div  layout:fragment="content" class="container my-5">
-            <h2 class="mb-5">Modifier Dossier</h2>
+            <h2 class="mb-5">Consultation Dossier</h2>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-10">
 					<form action="#" th:action="@{/dossier/update/{id}(id=${dossier.id})}" th:object="${dossier}" method="post">                    
-                        <div class="row">
-						<div class="form-group col-md-6">
-							<label for="vpnType" class="col-form-label">Type</label> 
-							<input readonly="readonly" type="text" th:field="*{type}" class="form-control" id="type" >
+						<div class="row">
+							<div class="form-group col-md-10">
+								<label for="client.raisonSociale" class="col-form-label"><strong>Client :  </strong></label>  
+ 								<span th:text="*{client.raisonSociale}"></span>
+							</div>
+	                        <div class="form-group col-md-10">
+	                            <label for="reference" class="col-form-label"><strong>R&eacute;f&eacute;rence (N&deg;) :  </strong></label> 
+								<span th:text="*{reference}"></span>		                            
+	                        </div>
+							<div class="form-group col-md-10">
+								<label for="dateDebut" class="col-form-label"><strong>Date de cr&eacute;ation :  </strong></label> 
+								<span>Le <span th:text="*{#dates.format(dateDebut, 'dd-MM-yyyy  &agrave; HH:mm')}"></span></span>							
+							</div>
+							<div class="form-group col-md-10">
+								<label for="responsable" class="col-form-label"><strong>Responsable :  </strong></label> 
+								<span th:text="*{responsable}"></span>									
+							</div>
+							<div class="form-group col-md-10">
+								<label for="etat" class="col-form-label"><strong>Etat du dossier :  </strong></label>  
+								<span th:text="*{etat.libelle}"></span>									
+							</div>	
+							<div class="form-group col-md-10">
+								<label for="vpnIp" class="col-form-label"><strong>Url <span th:text="*{type}"></span> :  </strong></label>  
+								<span><a th:href="*{urlAkuiteo}" th:target="_blank">cliquez ici <i  class="fa fa-external-link" ></i></a></span>
+							</div>												
 						</div>
-						<div class="form-group col-md-6">
-                                <label for="vpnIp" class="col-form-label">Url</label>
-                                <input readonly="readonly" type="text" th:field="*{urlAkuiteo}" class="form-control" id="urlAkuiteo" >
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="responsable" class="col-form-label">Responsable</label>
-                                <input readonly="readonly" type="text" th:field="*{responsable}" class="form-control" id="responsable" >
-                            </div>
-                        </div>
                     </form>
                 </div>
             </div>
