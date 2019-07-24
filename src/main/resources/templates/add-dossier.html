@@ -11,17 +11,23 @@
                 <div class="col-md-6">
                     <form action="#" th:action="@{/dossier/add}" th:object="${dossier}" method="post">
                         <div class="row">
- 							<div class="form-group col-md-6">
-								<label for="vpnType" class="col-form-label">Client</label> 
-								<select th:field="*{client.id}"  class="form-control">
-									<option disabled selected th:value="0">Selectionnez un client ...</option>
-									<option th:each="client : ${clients}"
-                                 			th:value="${client.id}"
-                                 			th:text="${client.raisonSociale}">
-                         			</option>
-								</select>
-								<!-- <span th:if="${#fields.hasErrors('client')}" th:errors="*{client}" class="text-danger"></span> -->
-							</div>  
+					  	   <div class="form-group col-md-6" th:switch="*{id}">
+								<label for="client.id" class="col-form-label">Client</label>                         
+	                        	<p th:case="-2"> 
+									<select th:field="*{client.id}"  class="form-control">
+										<option disabled selected th:value="0">Selectionnez un client ...</option>
+										<option th:each="client : ${clients}"
+	                                 			th:value="${client.id}"
+	                                 			th:text="${client.raisonSociale}">
+	                         			</option>
+									</select>
+									<span th:if="${#fields.hasErrors('client')}" th:errors="*{client}" class="text-danger"></span>                      
+	                        	</p>	
+								<p th:case="-1">
+									 <input type="hidden" th:field="*{client.id}" th:value="*{client.id}" />  
+									<span th:text="*{client.raisonSociale}"></span>
+								</p>                        					 
+							</div>                      
                             <div class="form-group col-md-6">
                                 <label for="reference" class="col-form-label">R&eacute;f&eacute;rence (N&deg;)</label>
                                 <input type="text" th:field="*{reference}" class="form-control" id="reference" >

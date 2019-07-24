@@ -43,6 +43,10 @@ public class Client {
 	@OneToMany(mappedBy="client")
 	private List<Dossier> dossiers;
 
+	//bi-directional many-to-one association to Serveur
+	@OneToMany(mappedBy="client")
+	private List<Serveur> serveurs;	
+
 	public Client() {
 	}
 	
@@ -130,11 +134,33 @@ public class Client {
 
 		return dossier;
 	}
+	
+	public List<Serveur> getServeurs() {
+		return this.serveurs;
+	}
+
+	public void setServeurs(List<Serveur> serveurs) {
+		this.serveurs = serveurs;
+	}
+
+	public Serveur addServeur(Serveur serveur) {
+		getServeurs().add(serveur);
+		serveur.setClient(this);
+
+		return serveur;
+	}
+
+	public Serveur removeServeur(Serveur serveur) {
+		getServeurs().remove(serveur);
+		serveur.setClient(null);
+
+		return serveur;
+	}	
 
 	@Override
 	public String toString() {
 		return "Client [id=" + id + ", contact=" + contact + ", email=" + email + ", mobile=" + mobile
-				+ ", raisonSociale=" + raisonSociale + ", tel=" + tel + ", dossiers=" + dossiers
+				+ ", raisonSociale=" + raisonSociale + ", tel=" + tel + ", dossiers=" + dossiers + ", serveurs=" + serveurs
 				+ "]";
 	}
 
