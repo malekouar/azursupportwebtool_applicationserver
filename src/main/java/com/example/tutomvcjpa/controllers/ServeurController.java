@@ -59,8 +59,11 @@ public class ServeurController {
     @PostMapping("/serveur/add")
     public String addServeur(@Valid Serveur serveur, BindingResult result, Model model) {
         if (result.hasErrors()) {
-        	model.addAttribute("client", clientRepository.findById(serveur.getClient().getId()).orElseThrow(() -> new IllegalArgumentException("Invalid client Id:" + serveur.getClient().getId())));
-        	//model.addAttribute("config", configRepository.findByClientId(idclient).get(0));      	
+        	if(serveur.getId()==-1) {
+            	model.addAttribute("client", clientRepository.findById(serveur.getClient().getId()).orElseThrow(() -> new IllegalArgumentException("Invalid client Id:" + serveur.getClient().getId())));
+        	} else {
+            	model.addAttribute("clients", clientRepository.findAll());
+        	}
             return "add-serveur";
         }
         serveurRepository.save(serveur);
