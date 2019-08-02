@@ -9,11 +9,11 @@
 		<version>2.1.5.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>tutomvcjpa</artifactId>
+	<groupId>azur.support</groupId>
+	<artifactId>webtool</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>TutoMvcJpa</name>
-	<description>Demo project for Spring Boot</description>
+	<name>SupportWebTool</name>
+	<description>Application web de gestion et suivi du Support et Dev</description>
 
 	<properties>
 		<java.version>1.8</java.version>
