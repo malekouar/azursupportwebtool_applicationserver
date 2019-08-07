@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import azur.support.webtool.entities.Client;
+import azur.support.webtool.entities.Config;
+import azur.support.webtool.entities.Dossier;
+import azur.support.webtool.entities.Serveur;
 import azur.support.webtool.repositories.ClientRepository;
 
 @Controller
@@ -35,6 +38,26 @@ public class ClientController {
         return "add-client";
     }
     
+    @GetMapping("/client/wizard/newclient")
+    public String showNewClientWizardForm(Client client) {
+    	return "wizard/add-client";
+    }
+    
+    @GetMapping("/client/wizard/newconfig")
+    public String showNewConfigWizardForm(Client client, Config config) {
+    	return "wizard/add-config";
+    }
+    
+    @GetMapping("/client/wizard/newserveur")
+    public String showNewServeurWizardForm(Client client, Serveur serveur) {
+    	return "wizard/add-serveur";
+    }
+    
+    @GetMapping("/client/wizard/newdossier")
+    public String showNewDossierWizardForm(Client client, Dossier dossier) {
+    	return "wizard/add-dossier";
+    }
+    
     @GetMapping("/client/wizard")
     public String showWizardNewClientForm(Client client) {
     	return "stepper";
@@ -49,6 +72,33 @@ public class ClientController {
         clientRepository.save(client);
         model.addAttribute("clients", clientRepository.findAll());
         return "clients";
+    }
+    
+    //data: {raisonSociale,contact,tel,mobile,email},
+    @GetMapping("/client/add2")
+    public String addClient2(@Valid 
+    		String raisonSociale, 
+    		String contact, 
+    		String tel, 
+    		String mobile, 
+    		String email
+    		//, 
+    		//Model model
+    		) {
+//    	if (result.hasErrors()) {
+//    		return "add-client";
+//    	}
+    	
+    	Client client = new Client();
+    	client.setRaisonSociale(raisonSociale);
+    	client.setContact(contact);
+    	client.setTel(tel);
+    	client.setMobile(mobile);
+    	client.setEmail(email);
+
+    	clientRepository.save(client);
+    	//model.addAttribute("add-OK", null);
+    	return "wizard/add-OK";
     }
 
     @GetMapping("/client/view/{id}")
