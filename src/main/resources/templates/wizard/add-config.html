@@ -1,0 +1,81 @@
+        
+        <h4 class="mb-5">Nouvelle configuration</h4>
+        <div layout:fragment="content" class="container my-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <form action="#" th:action="@{/config/add}" th:object="${config}" method="post">
+                        <div class="row">
+					  	   <div class="form-group col-md-6" th:switch="*{id}">
+								<label for="client.id" class="col-form-label">Client</label>                         
+	                        	<p th:case="-2"> 
+									<select th:field="*{client.id}"  class="form-control">
+										<option disabled selected th:value="0">Selectionnez un client ...</option>
+										<option th:each="client : ${clients2}"
+	                                 			th:value="${client.id}"
+	                                 			th:text="${client.raisonSociale}">
+	                         			</option>
+									</select>
+	                        	</p>	
+								<p th:case="-1">
+									 <input type="hidden" th:field="*{client.id}" th:value="*{client.id}" />  
+									<span th:text="*{client.raisonSociale}"></span>
+								</p>     
+								<span th:if="${#fields.hasErrors('client')}" th:errors="*{client}" class="text-danger"></span>                    					 
+							</div>                         
+                            <div class="form-group col-md-6">
+                                <label for="teamviewerId" class="col-form-label">TeamViewer ID</label>
+                                <input type="text" th:field="*{teamviewerId}" class="form-control" id="teamviewerId" >
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="teamviewerPassword" class="col-form-label">TeamViewer Mot de passe</label>
+                                <input type="text" th:field="*{teamviewerPassword}" class="form-control" id="teamviewerPassword" >
+                            </div>
+						<div class="form-group col-md-6">
+							<label for="vpnType" class="col-form-label">Type VPN</label> 
+<!-- 							<input
+								type="text" th:field="*{vpnType}" class="form-control"
+								id="vpnType" >  -->
+							<select th:field="*{vpnType}"  class="form-control">
+								<option selected th:value="''">Selectionnez un client VPN ...</option>
+								<option th:value="'Cisco Anyconnect'" 	th:text="'Cisco Anyconnect'"></option>
+								<option th:value="'Stormshield VPN'" 	th:text="'Stormshield VPN'"></option>
+								<option th:value="'Sophos VPN'" 		th:text="'Sophos VPN'"></option>
+								<option th:value="'ECM Network'" 		th:text="'ECM Network'"></option>																
+							</select>
+						</div>
+						<div class="form-group col-md-6">
+                                <label for="vpnIp" class="col-form-label">IP VPN</label>
+                                <input type="text" th:field="*{vpnIp}" class="form-control" id="vpnIp" >
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="vpnLogin" class="col-form-label">Login VPN</label>
+                                <input type="text" th:field="*{vpnLogin}" class="form-control" id="vpnLogin" >
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="vpnPassword" class="col-form-label">Mot de passe VPN</label>
+                                <input type="text" th:field="*{vpnPassword}" class="form-control" id="vpnPassword" >
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mt-5">
+                                <!-- <button type="submit" class="btn btn-warning">Ajouter</button> -->
+	                            <div class="col-md-10 mt-60">
+	 	                           <div id="message"></div>
+	                                <button type="button" class="btn btn-warning" onclick="insertData();" name="insertclient" id="insertclient">Ajouter</button>
+	                            </div>                                
+                            </div>
+                        </div>    
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <script  th:inline="javascript">
+        
+        	$(document).ready(function() {
+        		
+        		alert("Config ==> clientId : " + $("#clientId").val());
+        	
+        	});	
+        
+        </script>

@@ -1,0 +1,119 @@
+﻿<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{fragments/main_layout}">
+
+    <head>
+		<title>Stepper page</title>    
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>jQeury.steps Demos</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/jquery.steps.css">
+        <script src="js/modernizr-2.6.2.min.js"></script>
+        <script src="js/jquery-1.9.1.min.js"></script>
+        <script src="js/jquery.cookie-1.3.1.js"></script>
+        <script src="js/jquery.steps.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <header>
+            <h1>Wizard Demo</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Basic</a></li>
+                    <li><a href="vertical.html">Vertical</a></li>
+                    <li><a href="tabs.html">Tabs</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="content">
+            <h1>Basic Demo</h1>
+
+			<div id="example-async">
+				<h3>Async Step</h3>
+				<section>
+					<div id="tt1" name="tt1"/>
+				</section>
+				<h3>Second Step</h3>
+				<section>
+					<p>Donec mi sapien, hendrerit nec egestas a, rutrum vitae dolor. Nullam venenatis diam ac ligula elementum pellentesque. 
+						In lobortis sollicitudin felis non eleifend. Morbi tristique tellus est, sed tempor elit. Morbi varius, nulla quis condimentum 
+						dictum, nisi elit condimentum magna, nec venenatis urna quam in nisi. Integer hendrerit sapien a diam adipiscing consectetur. 
+						In euismod augue ullamcorper leo dignissim quis elementum arcu porta. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+						Vestibulum leo velit, blandit ac tempor nec, ultrices id diam. Donec metus lacus, rhoncus sagittis iaculis nec, malesuada a diam. 
+						Donec non pulvinar urna. Aliquam id velit lacus.</p>
+				</section>
+				<h3>Third Step</h3>
+				<section>
+					<p>Morbi ornare tellus at elit ultrices id dignissim lorem elementum. Sed eget nisl at justo condimentum dapibus. Fusce eros justo, 
+						pellentesque non euismod ac, rutrum sed quam. Ut non mi tortor. Vestibulum eleifend varius ullamcorper. Aliquam erat volutpat. 
+						Donec diam massa, porta vel dictum sit amet, iaculis ac massa. Sed elementum dui commodo lectus sollicitudin in auctor mauris 
+						venenatis.</p>
+				</section>
+				<h3>Fourth Step</h3>
+				<section>
+					<p>Quisque at sem turpis, id sagittis diam. Suspendisse malesuada eros posuere mauris vehicula vulputate. Aliquam sed sem tortor. 
+						Quisque sed felis ut mauris feugiat iaculis nec ac lectus. Sed consequat vestibulum purus, imperdiet varius est pellentesque vitae. 
+						Suspendisse consequat cursus eros, vitae tempus enim euismod non. Nullam ut commodo tortor.</p>
+				</section>
+			</div>
+        </div>
+	
+		<script>
+		/*
+			$(function ()
+			{
+			
+			//	$("#wizard").steps({
+			//		headerTag: "h2",
+			//		bodyTag: "section",
+			//		transitionEffect: "slideLeft"
+			//	});
+			
+				$("#example-async").steps({
+					headerTag: "h3",
+					bodyTag: "section",
+					transitionEffect: "slide"
+				});
+			});
+		*/	
+$(document).ready(function() {
+	
+	//$("#tt1").load("vertical.html");
+	
+	$("#example-async").steps({
+		headerTag: "h3",
+		bodyTag: "section",
+		transitionEffect: "slide"
+	});	
+	
+	$.ajax({
+		type: 'GET',
+		url: '../client/new',
+		timeout: 3000,
+		success: function(data) {
+		  $('#tt1').html(data);
+		  },
+		error: function() {
+		  alert('La requête n\'a pas abouti'); }
+	});    				
+
+});				
+			
+			/*
+			$("#step1").click(function() {
+				$("#texter").load("test.html");
+			});
+			*/
+			
+		</script>
+
+	</body>
+</html>

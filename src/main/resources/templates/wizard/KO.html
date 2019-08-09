@@ -1,0 +1,13 @@
+
+<script>
+	var str = "[(${errorMessage})]";
+
+	if(str.includes("raison")) $("#raisonSociale").addClass('form-control is-invalid');
+	if(str.includes("contact")) $("#contact").addClass('form-control is-invalid');
+	if(str.includes("mail")) $("#email").addClass('form-control is-invalid');
+	//on renvoi l'info à la page parente (stepper.html)
+	$("#retour").val("KO");
+	
+</script> 
+    
+<p style="color:red;" th:utext="${errorMessage}"></p>

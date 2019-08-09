@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{fragments/main_layout2}">
+	<head>
+		<title>Wizard Clients</title>
+	</head>
+    <body>
+        <div layout:fragment="content">
+        <br/>
+        <br/>
+        <br/>
+	        <div id="new-client-wizard">
+					<h6>Client</h6>
+					<section>
+						<p  id="etape1" name="etape1"></p>
+					</section>
+					<h6>Configuration</h6>
+					<section>
+						<p  id="etape2" name="etape2"></p>
+					</section>
+					<h6>Serveurs</h6>
+					<section>
+						<p  id="etape3" name="etape3"></p>
+					</section>
+					<h6>Dossier</h6>
+					<section>
+						<p  id="etape4" name="etape4"></p>
+					</section>
+	        </div>
+			<script>
+				$(document).ready(function() {
+					
+					//$("#tt1").load("vertical.html");
+					
+					$("#new-client-wizard").steps({
+						headerTag: "h6",
+						bodyTag: "section",
+						transitionEffect: "slide"
+					});	
+					
+					$.ajax({
+						type: 'GET',
+						url: '/springbootapp/client/wizard/newclient',
+						timeout: 3000,
+						success: function(data) {
+						  $('#etape1').html(data);
+						  },
+						error: function() {
+						  alert('La requête n\'a pas abouti'); }
+					});    				
+					
+					$.ajax({
+						type: 'GET',
+						url: '/springbootapp/client/wizard/newconfig',
+						timeout: 3000,
+						success: function(data) {
+						  $('#etape2').html(data);
+						  },
+						error: function() {
+						  alert('La requête n\'a pas abouti'); }
+					});    				
+									
+					$.ajax({
+						type: 'GET',
+						url: '/springbootapp/client/wizard/newserveur',
+						timeout: 3000,
+						success: function(data) {
+						  $('#etape3').html(data);
+						  },
+						error: function() {
+						  alert('La requête n\'a pas abouti'); }
+					});    				
+					
+					$.ajax({
+						type: 'GET',
+						url: '/springbootapp/client/wizard/newdossier',
+						timeout: 3000,
+						success: function(data) {
+						  $('#etape4').html(data);
+						  },
+						error: function() {
+						  alert('La requête n\'a pas abouti'); }
+					});    				
+				 
+				});				
+			</script>
+        </div>
+	</body>
+</html>

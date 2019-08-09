@@ -38,31 +38,36 @@ public class ClientController {
         return "add-client";
     }
     
+    // ----------- WIZARD ------------------------------
+    
     @GetMapping("/client/wizard/newclient")
     public String showNewClientWizardForm(Client client) {
     	return "wizard/add-client";
     }
-    
+
     @GetMapping("/client/wizard/newconfig")
-    public String showNewConfigWizardForm(Client client, Config config) {
+    public String showNewConfigWizardForm(Long clientId, Config config, Model model) {
+    	model.addAttribute("clients2", clientRepository.findAll());
     	return "wizard/add-config";
-    }
-    
+    }      
+
     @GetMapping("/client/wizard/newserveur")
-    public String showNewServeurWizardForm(Client client, Serveur serveur) {
+    public String showNewServeurWizardForm(Long clientId, Serveur serveur) {
     	return "wizard/add-serveur";
     }
-    
+
     @GetMapping("/client/wizard/newdossier")
-    public String showNewDossierWizardForm(Client client, Dossier dossier) {
+    public String showNewDossierWizardForm(Long clientId, Dossier dossier) {
     	return "wizard/add-dossier";
     }
     
     @GetMapping("/client/wizard")
-    public String showWizardNewClientForm(Client client) {
+    public String showWizardNewClientForm() {
     	return "stepper";
     }
 
+    // ----------- WIZARD ------------------------------
+    
     @PostMapping("/client/add")
     public String addClient(@Valid Client client, BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -74,32 +79,55 @@ public class ClientController {
         return "clients";
     }
     
-    //data: {raisonSociale,contact,tel,mobile,email},
-    @GetMapping("/client/add2")
-    public String addClient2(@Valid 
-    		String raisonSociale, 
-    		String contact, 
-    		String tel, 
-    		String mobile, 
-    		String email
-    		//, 
-    		//Model model
-    		) {
-//    	if (result.hasErrors()) {
-//    		return "add-client";
-//    	}
-    	
-    	Client client = new Client();
-    	client.setRaisonSociale(raisonSociale);
-    	client.setContact(contact);
-    	client.setTel(tel);
-    	client.setMobile(mobile);
-    	client.setEmail(email);
+	// data: {raisonSociale,contact,tel,mobile,email},
+	@GetMapping("/client/add2")
+	public String addClient2(@Valid String raisonSociale, String contact, String tel, String mobile, String email,
+			Model model) {
+		
+		String errorMessage = "";
+		String comment="";
+		
+		try {
 
-    	clientRepository.save(client);
-    	//model.addAttribute("add-OK", null);
-    	return "wizard/add-OK";
-    }
+			if (raisonSociale == null || raisonSociale.isEmpty()) {
+				comment= "<li>La raison sociale est obligatoire. </li>";
+				errorMessage = errorMessage==null || errorMessage.isEmpty()  ? comment  : errorMessage + comment;
+			} 
+			
+			if (contact == null || contact.isEmpty()) {
+				comment= "<li>Le contact est obligatoire. </li>";
+				errorMessage = errorMessage==null || errorMessage.isEmpty()  ? comment  : errorMessage + comment;
+			} 
+			
+			if (email == null || email.isEmpty()|| !email.contains("@")) {
+				comment= "<li>Vous devez saisir une adresse e-mail valide. </li>";
+				errorMessage = errorMessage==null || errorMessage.isEmpty()  ? comment  : errorMessage + comment;				
+			} 
+			
+			
+			if(errorMessage !=null && ! errorMessage.isEmpty()) {
+				errorMessage = "<ul style = 'color:red'>" + errorMessage +"</ul>";
+				throw new Exception(errorMessage);
+			
+			} else {
+				Client client = new Client();
+				client.setRaisonSociale(raisonSociale);
+				client.setContact(contact);
+				client.setTel(tel);
+				client.setMobile(mobile);
+				client.setEmail(email);
+				
+				clientRepository.save(client);
+				model.addAttribute("strClientId", String.valueOf(client.getId()));
+				return "wizard/OK";
+			}
+
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", e.getMessage());
+			return "wizard/KO";
+		}
+
+	}
 
     @GetMapping("/client/view/{id}")
     public String showViewClient(@PathVariable("id") long id, Model model) {

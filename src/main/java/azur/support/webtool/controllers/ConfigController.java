@@ -12,16 +12,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import azur.support.webtool.entities.Config;
+import azur.support.webtool.repositories.ClientRepository;
 import azur.support.webtool.repositories.ConfigRepository;
 
 @Controller
 public class ConfigController {
     
+    private final ClientRepository clientRepository;
     private final ConfigRepository configRepository;
 
     @Autowired
-    public ConfigController(ConfigRepository configRepository) {
+    public ConfigController(ConfigRepository configRepository, ClientRepository clientRepository) {
         this.configRepository = configRepository;
+        this.clientRepository = clientRepository;
     }
 
     @GetMapping("/configs")
@@ -79,4 +82,5 @@ public class ConfigController {
         model.addAttribute("configs", configRepository.findAll());
         return "configs";
     }
+  
 }

@@ -1,0 +1,65 @@
+            
+        <h4 class="mb-5">Nouveau Serveur</h4>
+        <div  layout:fragment="content" class="container my-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <form action="#" th:action="@{/serveur/add}" th:object="${serveur}" method="post">
+                      <div class="row">
+					  	   <div class="form-group col-md-6" th:switch="*{id}">
+								<label for="client.id" class="col-form-label">Client</label>                         
+	                        	<p th:case="-2"> 
+									<select th:field="*{client.id}"  class="form-control">
+										<option disabled selected th:value="0">Selectionnez un client ...</option>
+										<option th:each="client : ${clients}"
+	                                 			th:value="${client.id}"
+	                                 			th:text="${client.raisonSociale}">
+	                         			</option>
+									</select>
+	                        	</p>	
+								<p th:case="-1">
+									 <input type="hidden" th:field="*{client.id}" th:value="*{client.id}" />  
+									<span th:text="*{client.raisonSociale}"></span>
+								</p>     
+								<span th:if="${#fields.hasErrors('client')}" th:errors="*{client}" class="text-danger"></span>                    					 
+							</div>   
+							<div class="form-group col-md-6">
+								<label for="serveurType" class="col-form-label">Type de serveur</label> 
+								<select th:field="*{serveurType}"  class="form-control">
+									<option selected th:value="''">Selectionnez ...</option>
+									<option th:value="'Capture'" th:text="'Capture'"></option>
+									<option th:value="'GED'" th:text="'GED'"></option>
+									<option th:value="'Workflow'" th:text="'Workflow'"></option>
+									<option th:value="'SQL'" th:text="'SQL'"></option>																
+								</select>
+								<span th:if="${#fields.hasErrors('serveurType')}" th:errors="*{serveurType}" class="text-danger"></span>
+							</div>
+                            <div class="form-group col-md-6">
+                                <label for="serveurNom" class="col-form-label">serveurNom</label>
+                                <input type="text" th:field="*{serveurNom}" class="form-control" id="serveurNom" >
+								<span th:if="${#fields.hasErrors('serveurNom')}" th:errors="*{serveurNom}" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="serveurIp" class="col-form-label">serveurIp</label>
+                                <input type="text" th:field="*{serveurIp}" class="form-control" id="serveurIp" >
+								<span th:if="${#fields.hasErrors('serveurIp')}" th:errors="*{serveurIp}" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="Login" class="col-form-label">Login</label>
+                                <input type="text" th:field="*{Login}" class="form-control" id="Login" >
+								<span th:if="${#fields.hasErrors('Login')}" th:errors="*{Login}" class="text-danger"></span>                                
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="password" class="col-form-label">Mot de passe</label>
+                                <input type="password" th:field="*{password}" class="form-control" id="password" >
+								<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
+                            </div>
+                       </div>
+                       <div class="row">
+                           <div class="col-md-6 mt-5">
+                               <button type="submit" class="btn btn-warning">Ajouter</button>
+                           </div>
+                       </div>    
+                    </form>
+                </div>
+            </div>
+        </div>

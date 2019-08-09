@@ -1,0 +1,93 @@
+
+        <h4 class="mb-5">Ajout d'un nouveau client</h4>
+        <div layout:fragment="content" class="container my-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- <form action="#" th:action="@{/client/add}" th:object="${client}" method="post" id ="form1"> -->
+                    <form action="" th:object="${client}" id ="form1" novalidate="novalidate">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="raisonSociale" class="col-form-label">Raison Sociale*</label>
+                                <input type="text" th:field="*{raisonSociale}" class="form-control" id="raisonSociale" >
+                                <span th:if="${#fields.hasErrors('raisonSociale')}" th:errors="*{raisonSociale}" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="contact" class="col-form-label">Contact*</label>
+                                <input type="text" th:field="*{contact}" class="form-control" id="contact" >
+                                <span th:if="${#fields.hasErrors('contact')}" th:errors="*{contact}" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="tel" class="col-form-label">Telephone</label>
+                                <input type="text" th:field="*{tel}" class="form-control" id="tel" >
+                                <span th:if="${#fields.hasErrors('tel')}" th:errors="*{tel}" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="mobile" class="col-form-label">Mobile</label>
+                                <input type="text" th:field="*{mobile}" class="form-control" id="mobile" >
+                                <span th:if="${#fields.hasErrors('mobile')}" th:errors="*{mobile}" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="email" class="col-form-label">Email</label>
+                                <input type="email" th:field="*{email}" class="form-control" id="email" >
+                                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10 mt-60">
+ 	                           <div id="message"></div>
+                                <button type="button" class="btn btn-warning" onclick="insertClientData();" name="insertclient" id="insertclient">Ajouter</button>
+                            </div>
+                        </div> 
+                    </form>
+                </div>
+            </div>
+        </div>
+ 
+     	<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+      
+		<script th:inline="javascript">
+			function insertClientData() {
+				//alert("insertData");
+				
+				var raisonSociale = $("#raisonSociale").val();
+				var contact = $("#contact").val();
+				var tel = $("#tel").val();
+				var mobile = $("#mobile").val();
+				var email = $("#email").val();
+
+				var dataString = 'raisonSociale=' + raisonSociale + "&"
+						+ 'contact=' + contact + "&" + 'tel=' + tel + "&"
+						+ 'mobile=' + mobile + "&" + 'email=' + email;
+
+				if (raisonSociale == '' || contact == '') {
+					//alert("Vous devez renseigner toutes les valeurs obligatoires (*)");
+					//return false;
+				}
+
+				if (!validateEmail(email)) {
+					//alert("Adresse mail non valide");
+					//return false;
+				}
+
+				// AJAX pour l'envoi du formulaire
+				$.ajax({
+					type : "GET",
+					url : "[(@{/client/add2})]",
+					data : dataString,
+					//data : "[(${client})]",
+					//dataType: "HTML",
+					success : function(data) {
+						$("#message").html(data);
+					},
+					error : function(err) {
+						$("#message").html(err);
+					}
+				});
+			}
+
+			function validateEmail(email) {
+				var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+				return re.test(String(email).toLowerCase());
+			}
+		</script>
+          

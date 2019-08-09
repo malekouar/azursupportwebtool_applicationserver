@@ -8,34 +8,118 @@
         <div layout:fragment="content">
         <br/>
         <br/>
+        <div id="retour"></div>
+        <div id="clientId"></div>
         <br/>
 	        <div id="new-client-wizard">
 					<h6>Client</h6>
 					<section>
-						<p  id="etape1" name="etape1"></p>
+						<p id="etape1" name="etape1"></p>
 					</section>
 					<h6>Configuration</h6>
 					<section>
-						<p  id="etape2" name="etape2"></p>
+						<p id="etape2" name="etape2"></p>
 					</section>
 					<h6>Serveurs</h6>
 					<section>
-						<p  id="etape3" name="etape3"></p>
+						<p id="etape3" name="etape3"></p>
 					</section>
 					<h6>Dossier</h6>
 					<section>
-						<p  id="etape4" name="etape4"></p>
+						<p id="etape4" name="etape4"></p>
 					</section>
 	        </div>
 			<script>
 				$(document).ready(function() {
+					
+					//var testy = $("#retour").val();
 					
 					//$("#tt1").load("vertical.html");
 					
 					$("#new-client-wizard").steps({
 						headerTag: "h6",
 						bodyTag: "section",
-						transitionEffect: "slide"
+						transitionEffect: "slide",
+					
+					    onStepChanging: function (event, currentIndex, newIndex)
+					    {
+					    	///alert("currentIndex = " + currentIndex + "\n" + "newIndex = " + newIndex);
+					    	
+					    	//if ($("#retour").val()=='KO') return false;
+  					    	
+					    	//
+					    	
+					    		
+							//$("#insertclient").click();
+					    	
+
+					    	
+				    		if ($("#retour").val()=="OK") {
+								//alert("clientId : " + $("#clientId").val());
+				    			return true;
+				    		}
+				    		else {
+				    			return false;
+				    		}					    	
+					    	
+/* 							setTimeout(function(){
+					    		alert("retour : " + $("#retour").val());
+
+							}, 6000); */
+					    	//return true;
+					    	
+					    },						
+				
+						onStepChanged: function (event, currentIndex, priorIndex)
+						{
+							///alert("currentIndex = " + currentIndex + "\n" + "newIndex = " + newIndex);	
+							if(currentIndex==1) {
+								$.ajax({
+									type: 'GET',
+									url: '/springbootapp/client/wizard/newconfig',
+									timeout: 3000,
+									success: function(data) {
+									  $('#etape2').html(data);
+									  },
+									error: function() {
+									  alert('La requête n\'a pas abouti'); }
+								});  
+							}
+
+							else if(currentIndex==2) {
+								$.ajax({
+									type: 'GET',
+									url: '/springbootapp/client/wizard/newserveur',
+									timeout: 3000,
+									success: function(data) {
+									  $('#etape3').html(data);
+									  },
+									error: function() {
+									  alert('La requête n\'a pas abouti'); }
+								});  
+							}
+
+							else if(currentIndex==3) {
+								$.ajax({
+									type: 'GET',
+									url: '/springbootapp/client/wizard/newdossier',
+									timeout: 3000,
+									success: function(data) {
+									  $('#etape4').html(data);
+									  },
+									error: function() {
+									  alert('La requête n\'a pas abouti'); }
+								}); 
+							} 
+							
+							else {
+								
+							}
+							
+							
+							
+					    	
+					    },						
 					});	
 					
 					$.ajax({
@@ -44,44 +128,20 @@
 						timeout: 3000,
 						success: function(data) {
 						  $('#etape1').html(data);
+						  isError = true;
 						  },
 						error: function() {
 						  alert('La requête n\'a pas abouti'); }
-					});    				
+					});					
+  				
 					
-					$.ajax({
-						type: 'GET',
-						url: '/springbootapp/client/wizard/newconfig',
-						timeout: 3000,
-						success: function(data) {
-						  $('#etape2').html(data);
-						  },
-						error: function() {
-						  alert('La requête n\'a pas abouti'); }
-					});    				
+							
 									
-					$.ajax({
-						type: 'GET',
-						url: '/springbootapp/client/wizard/newserveur',
-						timeout: 3000,
-						success: function(data) {
-						  $('#etape3').html(data);
-						  },
-						error: function() {
-						  alert('La requête n\'a pas abouti'); }
-					});    				
+  				
 					
-					$.ajax({
-						type: 'GET',
-						url: '/springbootapp/client/wizard/newdossier',
-						timeout: 3000,
-						success: function(data) {
-						  $('#etape4').html(data);
-						  },
-						error: function() {
-						  alert('La requête n\'a pas abouti'); }
-					});    				
-				 
+   					
+								
+					
 				});				
 			</script>
         </div>
