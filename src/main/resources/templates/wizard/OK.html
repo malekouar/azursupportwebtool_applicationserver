@@ -1,5 +1,23 @@
 <script>
-	var clientId = "[(${strClientId})]";
+	var step = "[(${step})]";
+	
+	//alert("step ok = " + step);
+	
+	if(step == 'client') {
+		var clientId = "[(${strClientId})]";	
+		$("#clientId").val(clientId);
+		$("#insertclient").addClass('btn btn-warning disabled');
+		$("#insertclient").attr("disabled", true);
+	}
+	
+	if(step == 'config') {
+		var configId = "[(${strConfigId})]";
+		//$("#insertconfig").addClass('form-control is-invalid');
+		//alert("OK configId : " + configId);	
+		//$("#clientId").val(clientId);
+	}
+
+	
 	/* 	var str = "[(${errorMessage})]";
 
 	if(str.includes("raison")) $("#raisonSociale").addClass('form-control is-invalid');
@@ -7,11 +25,15 @@
 	if(str.includes("mail")) $("#email").addClass('form-control is-invalid'); */
 	//on renvoi l'info à la page parente (stepper.html)
 	$("#retour").val("OK");
-	$("#clientId").val(clientId);
+	$("#retourclient").val("[(${retourclient})]");
+	$("#retourconfig").val("[(${retourconfig})]");
+	$("#retourserveur").val("[(${retourserveur})]");	
+
 	
 	//alert("OK retour : " + $("#retour").val());
 	
 	//alert("OK clientId : " + clientId);	
+	
 	//alert("OK clientId : " + $("#clientId").val());	
 </script> 
         

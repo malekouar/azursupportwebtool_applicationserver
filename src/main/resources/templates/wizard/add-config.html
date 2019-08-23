@@ -1,27 +1,14 @@
         
-        <h4 class="mb-5">Nouvelle configuration</h4>
+        <h4 class="mb-5" style = "color: red;"><!-- Nouvelle configuration Wizard  -->
+        		<span th:text="${session.client.raisonSociale}"></span> [<span th:text="${session.client.id}"></span>]
+        </h4>
         <div layout:fragment="content" class="container my-5">
             <div class="row">
                 <div class="col-md-6">
-                    <form action="#" th:action="@{/config/add}" th:object="${config}" method="post">
-                        <div class="row">
-					  	   <div class="form-group col-md-6" th:switch="*{id}">
-								<label for="client.id" class="col-form-label">Client</label>                         
-	                        	<p th:case="-2"> 
-									<select th:field="*{client.id}"  class="form-control">
-										<option disabled selected th:value="0">Selectionnez un client ...</option>
-										<option th:each="client : ${clients2}"
-	                                 			th:value="${client.id}"
-	                                 			th:text="${client.raisonSociale}">
-	                         			</option>
-									</select>
-	                        	</p>	
-								<p th:case="-1">
-									 <input type="hidden" th:field="*{client.id}" th:value="*{client.id}" />  
-									<span th:text="*{client.raisonSociale}"></span>
-								</p>     
-								<span th:if="${#fields.hasErrors('client')}" th:errors="*{client}" class="text-danger"></span>                    					 
-							</div>                         
+                    <!-- <form action="#" th:action="@{/config/add2}" th:object="${config}" method="post"> -->
+					<form onsubmit ="return false" action="" th:object="${config}" id ="form2" novalidate="novalidate">   
+                   		<input type="hidden" th:field="*{client.id}" th:value="${session.client.id}" />
+                       	<div class="row">
                             <div class="form-group col-md-6">
                                 <label for="teamviewerId" class="col-form-label">TeamViewer ID</label>
                                 <input type="text" th:field="*{teamviewerId}" class="form-control" id="teamviewerId" >
@@ -30,20 +17,17 @@
                                 <label for="teamviewerPassword" class="col-form-label">TeamViewer Mot de passe</label>
                                 <input type="text" th:field="*{teamviewerPassword}" class="form-control" id="teamviewerPassword" >
                             </div>
-						<div class="form-group col-md-6">
-							<label for="vpnType" class="col-form-label">Type VPN</label> 
-<!-- 							<input
-								type="text" th:field="*{vpnType}" class="form-control"
-								id="vpnType" >  -->
-							<select th:field="*{vpnType}"  class="form-control">
-								<option selected th:value="''">Selectionnez un client VPN ...</option>
-								<option th:value="'Cisco Anyconnect'" 	th:text="'Cisco Anyconnect'"></option>
-								<option th:value="'Stormshield VPN'" 	th:text="'Stormshield VPN'"></option>
-								<option th:value="'Sophos VPN'" 		th:text="'Sophos VPN'"></option>
-								<option th:value="'ECM Network'" 		th:text="'ECM Network'"></option>																
-							</select>
-						</div>
-						<div class="form-group col-md-6">
+							<div class="form-group col-md-6">
+								<label for="vpnType" class="col-form-label">Type VPN</label> 
+								<select th:field="*{vpnType}"  class="form-control">
+									<option selected th:value="''">Selectionnez un client VPN ...</option>
+									<option th:value="'Cisco Anyconnect'" 	th:text="'Cisco Anyconnect'"></option>
+									<option th:value="'Stormshield VPN'" 	th:text="'Stormshield VPN'"></option>
+									<option th:value="'Sophos VPN'" 		th:text="'Sophos VPN'"></option>
+									<option th:value="'ECM Network'" 		th:text="'ECM Network'"></option>																
+								</select>
+							</div>
+							<div class="form-group col-md-6">
                                 <label for="vpnIp" class="col-form-label">IP VPN</label>
                                 <input type="text" th:field="*{vpnIp}" class="form-control" id="vpnIp" >
                             </div>
@@ -55,27 +39,80 @@
                                 <label for="vpnPassword" class="col-form-label">Mot de passe VPN</label>
                                 <input type="text" th:field="*{vpnPassword}" class="form-control" id="vpnPassword" >
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mt-5">
-                                <!-- <button type="submit" class="btn btn-warning">Ajouter</button> -->
-	                            <div class="col-md-10 mt-60">
-	 	                           <div id="message"></div>
-	                                <button type="button" class="btn btn-warning" onclick="insertData();" name="insertclient" id="insertclient">Ajouter</button>
-	                            </div>                                
+                       	</div>
+                       	<div class="row">
+                            <div class="col-md-10 mt-60">
+ 	                           <div id="messageConf"></div>
+                                <button type="button" class="btn btn-warning" onclick="insertConfigData();" name="insertconfig" id="insertconfig">Ajouter</button>
                             </div>
-                        </div>    
+                       	</div>                           
                     </form>
                 </div>
             </div>
         </div>
         
+        <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+        
         <script  th:inline="javascript">
         
-        	$(document).ready(function() {
-        		
-        		alert("Config ==> clientId : " + $("#clientId").val());
-        	
+        	$(document).ready(function() {// alert("Config ==> clientId : " + $("#clientId").val());
         	});	
+        	
+        	function insertConfigData() {
+				// alert("insertConfigData");
+				
+				//var clientId = $("#client.id").val();
+				var clientId = '[(${session.client.id})]';
+				var raisonSociale = $("#client.raisonSociale").val();
+				var teamviewerId = $("#teamviewerId").val();
+				var teamviewerPassword = $("#teamviewerPassword").val();
+				var vpnType = $("#vpnType").val();
+				var vpnIp = $("#vpnIp").val();
+				var vpnLogin = $("#vpnLogin").val();
+				var vpnPassword = $("#vpnPassword").val();
+
+				var dataString = 'clientId=' + clientId + "&"
+						+ 'teamviewerId=' + teamviewerId + "&" + 'teamviewerPassword=' + teamviewerPassword + "&"
+						+ 'vpnType=' + vpnType + "&" + 'vpnIp=' + vpnIp + "&"
+						+ 'vpnLogin=' + vpnLogin + "&" + 'vpnPassword=' + vpnPassword;
+				
+				 //alert(dataString);
+				
+				
+				if (teamviewerId == '' && teamviewerPassword == '' && vpnType == '') {
+					alert("vous devez effectuer une configuration (TeamViewer ou VPN)");
+					//return false;
+				}
+				if ((teamviewerId == '' && teamviewerPassword != '') ||  (teamviewerId != '' && teamviewerPassword == '')) {
+					alert("Votre configuration TeamViewer est incompl\350te");
+					//return false;
+				}
+				
+				if (vpnType != '' && (vpnIp == '' ||  vpnLogin == '' || vpnPassword == '')) {
+					alert("Votre configuration VPN est incompl\350te");
+					//return false;
+				}
+
+/* 				if (!validateEmail(email)) {
+					//alert("Adresse mail non valide");
+					//return false;
+				} */
+
+				// AJAX pour l'envoi du formulaire
+				$.ajax({
+					type : "GET",
+					url : "[(@{/config/add2})]",
+					data : dataString,
+					//data : "[(${client})]",
+					//dataType: "HTML",
+					success : function(data) {
+						$("#messageConf").html(data);
+					},
+					error : function(err) {
+						$("#messageConf").html(err);
+					}
+				});
+			}
+        	
         
         </script>

@@ -1,13 +1,50 @@
 
 <script>
+	var step = "[(${step})]";
+	var stepindex = "[(${stepindex})]";
 	var str = "[(${errorMessage})]";
-
-	if(str.includes("raison")) $("#raisonSociale").addClass('form-control is-invalid');
-	if(str.includes("contact")) $("#contact").addClass('form-control is-invalid');
-	if(str.includes("mail")) $("#email").addClass('form-control is-invalid');
+	
+	 //alert("step ko = " + step);
+	// alert("str = " + str);
+	
+	if(step == 'client') {
+		if(str.includes("raison")) $("#raisonSociale").addClass('form-control is-invalid');
+		if(str.includes("contact")) $("#contact").addClass('form-control is-invalid');
+		if(str.includes("mail")) $("#email").addClass('form-control is-invalid');
+	}
+	
+	if(step == 'config') {
+		if(str.includes("Teamviewer")) {
+			$("#teamviewerId").addClass('form-control is-invalid');
+			$("#teamviewerPassword").addClass('form-control is-invalid');
+		}
+		
+		if(str.includes("VPN")) {
+			$("#vpnType").addClass('form-control is-invalid');
+			$("#vpnIp").addClass('form-control is-invalid');
+			$("#vpnPassword").addClass('form-control is-invalid');
+		}
+		
+		if(str.includes("mode")) {
+			$("#teamviewerId").addClass('form-control is-invalid');
+			$("#teamviewerPassword").addClass('form-control is-invalid');			
+			$("#vpnType").addClass('form-control is-invalid');
+			$("#vpnIp").addClass('form-control is-invalid');
+			$("#setVpnLogin").addClass('form-control is-invalid');
+			$("#vpnPassword").addClass('form-control is-invalid');
+			
+		}
+	}
+	
 	//on renvoi l'info à la page parente (stepper.html)
 	$("#retour").val("KO");
+	$("#step").val(step);
+	$("#stepindex").val(stepindex);
+	$("#retourclient").val("[(${retourclient})]");
+	$("#retourconfig").val("[(${retourconfig})]");
+	$("#retourserveur").val("[(${retourserveur})]");
+	
 	
 </script> 
     
-<p style="color:red;" th:utext="${errorMessage}"></p>
+<p style="color:red; width: 200px;" th:utext="${errorMessage}"></p>

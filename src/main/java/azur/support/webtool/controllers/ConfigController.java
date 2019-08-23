@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import azur.support.webtool.entities.Client;
 import azur.support.webtool.entities.Config;
 import azur.support.webtool.repositories.ClientRepository;
 import azur.support.webtool.repositories.ConfigRepository;
@@ -47,6 +48,77 @@ public class ConfigController {
         configRepository.save(config);
         model.addAttribute("configs", configRepository.findAll());
         return "configs";
+    }
+    
+    @GetMapping("/config/add2")
+    public String addConfig2(@Valid long clientId
+    		, String teamviewerId
+    		, String teamviewerPassword
+    		, String vpnType
+    		, String vpnIp
+    		, String vpnLogin
+    		, String vpnPassword
+    		, Model model) {
+    	
+		String errorMessage = "";
+		String comment="";
+		boolean isFormEmpty = teamviewerId.isEmpty() && vpnType.isEmpty();
+		boolean isTVEmty = (!teamviewerId.isEmpty() || !teamviewerPassword.isEmpty()) && !(!teamviewerId.isEmpty() && !teamviewerPassword.isEmpty());
+		boolean isVpnEmpty = !vpnType.isEmpty() && !(!vpnIp.isEmpty() && !vpnLogin.isEmpty() && !vpnPassword.isEmpty());
+		
+		model.addAttribute("step", "config");
+		model.addAttribute("stepindex", "1");
+		
+		try {
+
+//			if ((teamviewerId == null || teamviewerId.isEmpty()) && (vpnType == null || vpnType.isEmpty())) {
+			if (isFormEmpty) {
+				comment= "<li>Vous devez configurer un mode d'accès. </li>";
+				errorMessage = errorMessage==null || errorMessage.isEmpty()  ? comment  : errorMessage + comment;
+			} 
+			
+			else if (isTVEmty) {
+				comment= "<li>Configuration Teamviewer incomplète. </li>";
+				errorMessage = errorMessage==null || errorMessage.isEmpty()  ? comment  : errorMessage + comment;
+			} 
+			
+			else if (isVpnEmpty) {
+				comment= "<li>Configuration VPN incomplète. </li>";
+				errorMessage = errorMessage==null || errorMessage.isEmpty()  ? comment  : errorMessage + comment;				
+			} 
+			
+			if(errorMessage != null && ! errorMessage.isEmpty()) {
+				errorMessage = "<ul style = 'color:red'>" + errorMessage +"</ul>";
+				throw new Exception(errorMessage);
+			
+			} else {
+				Config config = new Config();
+				Client client = clientRepository.findById(clientId).orElseThrow(() -> new IllegalArgumentException("Invalid client Id:" + clientId));
+				config.setClient(client);
+				config.setTeamviewerId(teamviewerId);
+				config.setTeamviewerPassword(teamviewerPassword);
+				config.setVpnType(vpnType);
+				config.setVpnIp(vpnIp);
+				config.setVpnLogin(vpnLogin);
+				config.setVpnPassword(vpnPassword);
+				
+				configRepository.save(config);
+				model.addAttribute("strConfigId", String.valueOf(config.getId()));
+				model.addAttribute("retourconfig", "OK");
+				return "wizard/OK";
+			}		
+			
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", e.getMessage());
+			model.addAttribute("retourconfig", "KO");
+			return "wizard/KO";
+		}
+    	
+
+		
+//    	configRepository.save(config);
+//    	model.addAttribute("configs", configRepository.findAll());
+//    	return "configs";
     }
 
     @GetMapping("/config/view/{id}")

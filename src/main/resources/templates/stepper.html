@@ -9,6 +9,12 @@
         <br/>
         <br/>
         <div id="retour"></div>
+        <div id="retourclient"></div>
+        <div id="retourconfig"></div>
+        <div id="retourserveur"></div>
+        <div id="retourdossier"></div>
+        <div id="step"></div>
+        <div id="stepindex"></div>
         <div id="clientId"></div>
         <br/>
 	        <div id="new-client-wizard">
@@ -35,6 +41,8 @@
 					//var testy = $("#retour").val();
 					
 					//$("#tt1").load("vertical.html");
+					$("#step").val('client');
+					//$("#clientId").val('2');
 					
 					$("#new-client-wizard").steps({
 						headerTag: "h6",
@@ -51,10 +59,13 @@
 					    	
 					    		
 							//$("#insertclient").click();
-					    	
-
-					    	
-				    		if ($("#retour").val()=="OK") {
+					    	if(newIndex > currentIndex && currentIndex == 1 && $("#retourconfig").val()  != "OK" ) {return false;}
+					    	else if(newIndex > currentIndex && currentIndex == 2 && $("#retourserveur").val() != "OK" ) {return false;}
+					    	else if(newIndex > currentIndex && currentIndex == 3 && $("#retourdossier").val() != "OK" ) {return false;}
+							
+							//alert("stepindex : " + $("#stepindex").val());
+					    	// on avance si c'est ok, sinon on peut uniquement revenir en arrière
+				    		else if ($("#retour").val()=="OK" || newIndex < currentIndex || newIndex <= $("#stepindex").val()) {
 								//alert("clientId : " + $("#clientId").val());
 				    			return true;
 				    		}
@@ -72,21 +83,30 @@
 				
 						onStepChanged: function (event, currentIndex, priorIndex)
 						{
+							if(currentIndex==0) {
+								$("#step").val('client');
+							}
 							///alert("currentIndex = " + currentIndex + "\n" + "newIndex = " + newIndex);	
 							if(currentIndex==1) {
-								$.ajax({
+								$("#step").val('config');
+								proceedConfig();
+								
+/* 								$.ajax({
 									type: 'GET',
-									url: '/springbootapp/client/wizard/newconfig',
+									url: '/springbootapp/client/wizard/newconfig/'+$("#clientId").val(),
+									//url: '/springbootapp/client/wizard/newconfig/2',
 									timeout: 3000,
 									success: function(data) {
 									  $('#etape2').html(data);
+									  //isError = true;
 									  },
 									error: function() {
 									  alert('La requête n\'a pas abouti'); }
-								});  
+								});	 */								
 							}
 
 							else if(currentIndex==2) {
+								$("#step").val('serveur');
 								$.ajax({
 									type: 'GET',
 									url: '/springbootapp/client/wizard/newserveur',
@@ -100,6 +120,7 @@
 							}
 
 							else if(currentIndex==3) {
+								$("#step").val('dossier');
 								$.ajax({
 									type: 'GET',
 									url: '/springbootapp/client/wizard/newdossier',
@@ -116,9 +137,7 @@
 								
 							}
 							
-							
-							
-					    	
+							//alert("step : " + $("#step").val());
 					    },						
 					});	
 					
@@ -128,21 +147,37 @@
 						timeout: 3000,
 						success: function(data) {
 						  $('#etape1').html(data);
-						  isError = true;
+						  //isError = true;
 						  },
 						error: function() {
 						  alert('La requête n\'a pas abouti'); }
-					});					
-  				
+					});	
 					
-							
-									
-  				
+					//alert("stepindex >> " + $("#stepindex").val());
 					
-   					
-								
+					//if($("#stepindex").val() == 1) {
 					
-				});				
+					//}
+					
+  					
+					
+				});	
+				
+				function proceedConfig() {
+					//alert("proceedConfig >> " + $("#clientId").val() );
+					$.ajax({
+						type: 'GET',
+						url: '/springbootapp/client/wizard/newconfig/'+$("#clientId").val(),
+						//url: '/springbootapp/client/wizard/newconfig/2',
+						timeout: 3000,
+						success: function(data) {
+						  $('#etape2').html(data);
+						  //isError = true;
+						  },
+						error: function() {
+						  alert('La requête n\'a pas abouti'); }
+					});	
+				}
 			</script>
         </div>
 	</body>

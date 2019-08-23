@@ -1,6 +1,7 @@
 package azur.support.webtool.controllers;
 
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +46,17 @@ public class ClientController {
     	return "wizard/add-client";
     }
 
-    @GetMapping("/client/wizard/newconfig")
-    public String showNewConfigWizardForm(Long clientId, Config config, Model model) {
-    	model.addAttribute("clients2", clientRepository.findAll());
+    @GetMapping("/client/wizard/newconfig/{clientid}")
+    public String showNewConfigWizardForm(@PathVariable("clientid") long clientid, Config config, HttpSession session) {
+    	
+    	Client theClient = (Client)session.getAttribute("client");
+    	
+    	if(theClient == null) {
+            theClient = clientRepository.findById(clientid).orElseThrow(() -> new IllegalArgumentException("Invalid client Id:" + clientid));
+        	session.setAttribute("client", theClient);
+    	} 
+    	
+    	//model.addAttribute("client", theClient);
     	return "wizard/add-config";
     }      
 
@@ -66,7 +75,7 @@ public class ClientController {
     	return "stepper";
     }
 
-    // ----------- WIZARD ------------------------------
+    // ----------- Fin WIZARD ------------------------------
     
     @PostMapping("/client/add")
     public String addClient(@Valid Client client, BindingResult result, Model model) {
@@ -86,6 +95,9 @@ public class ClientController {
 		
 		String errorMessage = "";
 		String comment="";
+		
+		model.addAttribute("step", "client");
+		model.addAttribute("stepindex", "0");		
 		
 		try {
 
@@ -119,11 +131,13 @@ public class ClientController {
 				
 				clientRepository.save(client);
 				model.addAttribute("strClientId", String.valueOf(client.getId()));
+				model.addAttribute("retourclient", "OK");
 				return "wizard/OK";
 			}
 
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", e.getMessage());
+			model.addAttribute("retourclient", "KO");
 			return "wizard/KO";
 		}
 
