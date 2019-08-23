@@ -135,6 +135,17 @@ public class ConfigController {
     	return "update-config";
     }
     
+
+    @GetMapping("/client/wizard/editconfig/{clientid}")
+    public String showNewConfigWizardForm(@PathVariable("clientid") long clientid, Config config, Model model) {
+        Client client = clientRepository.findById(clientid).orElseThrow(() -> new IllegalArgumentException("Invalid client Id:" + clientid));
+    	model.addAttribute("client", client);
+        config = configRepository.findByClient(client).get(0);
+        model.addAttribute("config", config);
+    
+    	return "wizard/edit-config";
+    }      
+    
     @PostMapping("/config/update/{id}")
     public String updateConfig(@PathVariable("id") int id, @Valid Config config, BindingResult result, Model model) {
         if (result.hasErrors()) {

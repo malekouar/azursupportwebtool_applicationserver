@@ -43,7 +43,7 @@
                        	<div class="row">
                             <div class="col-md-10 mt-60">
  	                           <div id="messageConf"></div>
-                                <button type="button" class="btn btn-warning" onclick="insertConfigData();" name="insertconfig" id="insertconfig">Ajouter</button>
+                                <button type="button" class="btn btn-warning" onclick="insertConfigData();" name="insertconfig" id="insertconfig">Modifier</button>
                             </div>
                        	</div>                           
                     </form>
@@ -56,10 +56,15 @@
         <script  th:inline="javascript">
         
         	$(document).ready(function() {// alert("Config ==> clientId : " + $("#clientId").val());
+        	
+				$("#insertconfig").addClass('btn btn-warning disabled');
+				$("#insertconfig").attr("disabled", true);
         	});	
         	
         	function insertConfigData() {
 				// alert("insertConfigData");
+				
+
 				
 				//var clientId = $("#client.id").val();
 				var clientId = '[(${client.id})]';

@@ -1,7 +1,6 @@
 package azur.support.webtool.controllers;
 
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,16 +46,9 @@ public class ClientController {
     }
 
     @GetMapping("/client/wizard/newconfig/{clientid}")
-    public String showNewConfigWizardForm(@PathVariable("clientid") long clientid, Config config, HttpSession session) {
-    	
-    	Client theClient = (Client)session.getAttribute("client");
-    	
-    	if(theClient == null) {
-            theClient = clientRepository.findById(clientid).orElseThrow(() -> new IllegalArgumentException("Invalid client Id:" + clientid));
-        	session.setAttribute("client", theClient);
-    	} 
-    	
-    	//model.addAttribute("client", theClient);
+    public String showNewConfigWizardForm(@PathVariable("clientid") long clientid, Config config, Model model) {
+        Client theClient = clientRepository.findById(clientid).orElseThrow(() -> new IllegalArgumentException("Invalid client Id:" + clientid));
+    	model.addAttribute("client", theClient);
     	return "wizard/add-config";
     }      
 

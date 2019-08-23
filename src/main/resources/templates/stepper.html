@@ -42,7 +42,6 @@
 					
 					//$("#tt1").load("vertical.html");
 					$("#step").val('client');
-					//$("#clientId").val('2');
 					
 					$("#new-client-wizard").steps({
 						headerTag: "h6",
@@ -88,21 +87,34 @@
 							}
 							///alert("currentIndex = " + currentIndex + "\n" + "newIndex = " + newIndex);	
 							if(currentIndex==1) {
+								//alert("retourconfig : " + $("#retourconfig").val());
 								$("#step").val('config');
-								proceedConfig();
 								
-/* 								$.ajax({
-									type: 'GET',
-									url: '/springbootapp/client/wizard/newconfig/'+$("#clientId").val(),
-									//url: '/springbootapp/client/wizard/newconfig/2',
-									timeout: 3000,
-									success: function(data) {
-									  $('#etape2').html(data);
-									  //isError = true;
-									  },
-									error: function() {
-									  alert('La requête n\'a pas abouti'); }
-								});	 */								
+								if( $("#retourconfig").val() == 'OK') {
+									$.ajax({
+										type: 'GET',
+										url: '/springbootapp/client/wizard/editconfig/'+$("#clientId").val(),
+										timeout: 3000,
+										success: function(data) {
+										  $('#etape2').html(data);
+										  //isError = true;
+										  },
+										error: function() {
+										  alert('La requête n\'a pas abouti'); }
+									}); 
+								} else {
+									$.ajax({
+										type: 'GET',
+										url: '/springbootapp/client/wizard/newconfig/'+$("#clientId").val(),
+										timeout: 3000,
+										success: function(data) {
+										  $('#etape2').html(data);
+										  //isError = true;
+										  },
+										error: function() {
+										  alert('La requête n\'a pas abouti'); }
+									}); 
+								}
 							}
 
 							else if(currentIndex==2) {
@@ -151,33 +163,8 @@
 						  },
 						error: function() {
 						  alert('La requête n\'a pas abouti'); }
-					});	
-					
-					//alert("stepindex >> " + $("#stepindex").val());
-					
-					//if($("#stepindex").val() == 1) {
-					
-					//}
-					
-  					
-					
-				});	
-				
-				function proceedConfig() {
-					//alert("proceedConfig >> " + $("#clientId").val() );
-					$.ajax({
-						type: 'GET',
-						url: '/springbootapp/client/wizard/newconfig/'+$("#clientId").val(),
-						//url: '/springbootapp/client/wizard/newconfig/2',
-						timeout: 3000,
-						success: function(data) {
-						  $('#etape2').html(data);
-						  //isError = true;
-						  },
-						error: function() {
-						  alert('La requête n\'a pas abouti'); }
-					});	
-				}
+					});					
+				});				
 			</script>
         </div>
 	</body>
