@@ -52,8 +52,10 @@ public class ClientController {
     	return "wizard/add-config";
     }      
 
-    @GetMapping("/client/wizard/newserveur")
-    public String showNewServeurWizardForm(Long clientId, Serveur serveur) {
+    @GetMapping("/client/wizard/newserveur/{clientid}")
+    public String showNewServeurWizardForm(@PathVariable("clientid") long clientid, Serveur serveur, Model model) {
+        Client theClient = clientRepository.findById(clientid).orElseThrow(() -> new IllegalArgumentException("Invalid client Id:" + clientid));
+    	model.addAttribute("client", theClient);    	
     	return "wizard/add-serveur";
     }
 

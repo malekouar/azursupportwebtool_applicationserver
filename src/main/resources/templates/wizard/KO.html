@@ -30,11 +30,20 @@
 			$("#teamviewerPassword").addClass('form-control is-invalid');			
 			$("#vpnType").addClass('form-control is-invalid');
 			$("#vpnIp").addClass('form-control is-invalid');
-			$("#setVpnLogin").addClass('form-control is-invalid');
+			$("#vpnLogin").addClass('form-control is-invalid');
 			$("#vpnPassword").addClass('form-control is-invalid');
 			
 		}
 	}
+
+	if(step == 'serveur') {
+		if(str.includes("Type")) $("#serveurType").addClass('form-control is-invalid');
+		if(str.includes("Nom")) $("#serveurNom").addClass('form-control is-invalid');
+		if(str.includes("IP")) $("#serveurIp").addClass('form-control is-invalid');
+		if(str.includes("Login")) $("#login").addClass('form-control is-invalid');
+		if(str.includes("passe")) $("#password").addClass('form-control is-invalid');
+	}
+
 	
 	//on renvoi l'info à la page parente (stepper.html)
 	$("#retour").val("KO");

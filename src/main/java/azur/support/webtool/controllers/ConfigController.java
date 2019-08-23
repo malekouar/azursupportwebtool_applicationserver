@@ -137,7 +137,7 @@ public class ConfigController {
     
 
     @GetMapping("/client/wizard/editconfig/{clientid}")
-    public String showNewConfigWizardForm(@PathVariable("clientid") long clientid, Config config, Model model) {
+    public String showEditConfigWizardForm(@PathVariable("clientid") long clientid, Config config, Model model) {
         Client client = clientRepository.findById(clientid).orElseThrow(() -> new IllegalArgumentException("Invalid client Id:" + clientid));
     	model.addAttribute("client", client);
         config = configRepository.findByClient(client).get(0);

@@ -85,6 +85,7 @@
 							if(currentIndex==0) {
 								$("#step").val('client');
 							}
+							
 							///alert("currentIndex = " + currentIndex + "\n" + "newIndex = " + newIndex);	
 							if(currentIndex==1) {
 								//alert("retourconfig : " + $("#retourconfig").val());
@@ -119,16 +120,34 @@
 
 							else if(currentIndex==2) {
 								$("#step").val('serveur');
-								$.ajax({
-									type: 'GET',
-									url: '/springbootapp/client/wizard/newserveur',
-									timeout: 3000,
-									success: function(data) {
-									  $('#etape3').html(data);
-									  },
-									error: function() {
-									  alert('La requête n\'a pas abouti'); }
-								});  
+								
+								if( $("#retourserveur").val() == 'OK') {
+									$.ajax({
+										type: 'GET',
+										url: '/springbootapp/client/wizard/editserveur/'+$("#clientId").val(),
+										//url: '/springbootapp/client/wizard/newserveur/'+$("#clientId").val(),
+										timeout: 3000,
+										success: function(data) {
+										  $('#etape3').html(data);
+										  //isError = true;
+										  },
+										error: function() {
+										  alert('La requête n\'a pas abouti'); }
+									}); 
+								} else {
+								
+									$.ajax({
+										type: 'GET',
+										url: '/springbootapp/client/wizard/newserveur/'+$("#clientId").val(),
+										timeout: 3000,
+										success: function(data) {
+										  $('#etape3').html(data);
+										  },
+										error: function() {
+										  alert('La requête n\'a pas abouti'); }
+									});  
+								
+								}
 							}
 
 							else if(currentIndex==3) {
