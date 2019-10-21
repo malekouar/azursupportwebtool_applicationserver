@@ -16,6 +16,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 
 /**
@@ -38,6 +39,7 @@ public class Dossier {
 	private Date dateDebut;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
 	@Column(name="date_fin")
 	private Date dateFin;
 

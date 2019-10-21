@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{fragments/main_layout}">
+<head>
+<title>Liste des Interventions</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div th:switch="${interventions}" class="container my-5">
+			<div>
+				<h2 th:case="null">Pas encore de intervention !</h2>
+				<div th:case="*">
+					<h2 class="my-6">Liste des interventions</h2>
+					<div>
+						<a th:href="@{/intervention/new}" class="badge badge-warning">Ajouter une intervention</a>
+						<span style="padding-left: 3em;"><a th:href="@{/livraison/new}" class="badge badge-info">Ajouter une livraison</a></span>
+					</div>
+					<br />
+					<table class="table table-striped table-responsive-md">
+						<thead>
+							<tr>
+								<th>Type</th>
+								<th>Description</th>
+								<th>Responsable</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr th:each="intervention : ${interventions}">							
+								<td th:text="${intervention.type}"></td>
+								<td th:text="${intervention.description}"></td>
+								<td th:text="${intervention.responsable}"></td>								
+								<td>
+								<a th:href="@{/intervention/view/{id}(id=${intervention.id})}" class="badge badge-success">Consulter</a>
+								&nbsp;
+								<a th:href="@{/intervention/edit/{id}(id=${intervention.id})}" class="badge badge-info">Modifier</a>
+								&nbsp;<a th:href="@{/intervention/delete/{id}(id=${intervention.id})}" class="badge badge-danger">Supprimer</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

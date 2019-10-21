@@ -51,13 +51,22 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="Login" class="col-form-label">Login</label>
-                                <input type="text" th:field="*{Login}" class="form-control" id="Login" >
+                                <input type="text" th:field="*{Login}" class="form-control" id="Login" value="">
 								<span th:if="${#fields.hasErrors('Login')}" th:errors="*{Login}" class="text-danger"></span>                                
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="password" class="col-form-label">Mot de passe</label>
-                                <input type="password" th:field="*{password}" class="form-control" id="password" >
+                            <div class="form-group col-md-6" >
+                                <label for="password" class="col-form-label">Mot de passe </label>
+                                
+                                <!-- hide/show password -->
+                                <div class="input-group" id="show_hide_password">
+	                                <input type="password" th:field="*{password}" class="form-control" id="password" value="">
+							        <div class="input-group-addon">
+							        	<a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+							        </div>	                                
+								</div>
+								
 								<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
+								
                             </div>
                        </div>
                        <div class="row">

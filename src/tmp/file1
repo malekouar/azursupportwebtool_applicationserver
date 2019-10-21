@@ -1,0 +1,49 @@
+import azur.document.D03Utilities;
+import ch.ivyteam.io.FileUtil;
+import azur.common.ACLException;
+import java.text.SimpleDateFormat;
+import org.apache.commons.io.FileUtils;
+import azur.common.ecm.ECMProperty;
+import azur.common.ecm.ArchivageModel;
+
+	//ivy.log.debug("ECM Archivage document useCase >" + in.useCase);
+
+	ArchivageModel archivageModel = ECMProperty.getArchivageModel(in.useCase);
+
+	String ixx = archivageModel.expand(in.object);
+
+	SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+	java.util.Date d = new java.util.Date();
+	//String temp = format.format(d);
+	String temp = String.valueOf(d.toNumber());
+	
+	String ext = ivy.var.get("azur.common.ExtensionOfXmlArchiveFile");
+	if(ext == null || ext.length() == 0){
+		ext = ".ixx";
+	}
+	if(!ext.startsWith(".")){
+		ext = "." + ext;
+	}
+	String fileName = archivageModel.getPrefixe() + temp + archivageModel.getSuffixe();
+	String pdfFileName = fileName;
+	if (!in.ixxOnly) {
+		if(in.onlyPDF){
+			pdfFileName = fileName + ".pdf";
+			String tempPath = in.image.getAbsolutePath().substring(0,in.image.getAbsolutePath().lastIndexOf(".")) + ".pdf";
+			D03Utilities.convertToPdf(in.image.getAbsolutePath(), tempPath);
+			in.image = new java.io.File(tempPath);
+		}else{
+			pdfFileName = fileName + in.image.getName().substring(in.image.getName().lastIndexOf("."));
+		}
+			ixx = ixx.replace("#FILE_NAME#",pdfFileName);
+			//ivy.log.debug(ixx);
+	}
+	java.io.File file = new java.io.File(archivageModel.getDirectory(), fileName + "." + ext);
+
+	FileUtil.writeToFile(file,ixx);
+	if (!in.ixxOnly) {
+		FileUtils.copyFile(in.image,new java.io.File(archivageModel.getDirectory(), pdfFileName));
+	}
+
+	ivy.log.debug(file.getAbsolutePath());
+	file = null;

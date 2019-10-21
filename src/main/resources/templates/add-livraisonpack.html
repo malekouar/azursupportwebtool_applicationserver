@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{fragments/main_layout}">
+    <head>
+        <title>Nouvelle Livraison Packag&eacute;e</title>
+    </head>
+    <body>
+        <div  layout:fragment="content" class="container my-5">
+            <h2 class="mb-5">Nouvelle Livraison Packag&eacute;e</h2>
+            <div class="row">
+                <div class = "conteneur" >
+                    <form action="#" th:action="@{/livraisonPack/add}" th:object="${livraisonPackForm}" method="post">
+                        <div class="row">
+					  	   <div class="form-group col-md-12" th:switch="*{id}">
+								<h3>Client</h3><br/>                        
+								<select th:field="${livraisonPackForm.client.id}"  class="form-control">
+									<option disabled selected th:value="0">Selectionnez un client ...</option>
+									<option th:each="client : ${clients}"
+                                 			th:value="${client.id}"
+                                 			th:text="${client.raisonSociale}">
+                         			</option>
+								</select>
+								<span th:if="${#fields.hasErrors('client')}" th:errors="*{client}" class="text-danger"></span>                                             					 
+							</div> 
+						</div>
+						
+						
+						<!-- DOSSIER -->
+
+
+						<div class="row">
+							<h3  class="form-group col-md-10" >Information Dossier</h3>                       
+                            <div class="form-group col-md-6">
+                                <label for="dossier.reference" class="col-form-label">R&eacute;f&eacute;rence (N&deg;)*</label>
+                                <input type="text" th:field="${livraisonPackForm.dossier.reference}" class="form-control" id="reference" onchange = "updateNomPackage(this);">
+                                <span th:if="${#fields.hasErrors('dossier.reference')}" th:errors="${livraisonPackForm.dossier.reference}" class="text-danger"></span>
+                            </div>
+							<div class="form-group col-md-6">
+								<label for="dossier.type" class="col-form-label">Type</label> 
+								<select th:field="${livraisonPackForm.dossier.type}"  class="form-control">
+									<option selected th:value="''">Selectionnez un client VPN ...</option>
+									<option th:value="'Azimut'" 	th:text="'Azimut'"></option>
+									<option th:value="'Redmine'" 	th:text="'Redmine'"></option>
+									<option th:value="'Akuiteo'" 	th:text="'Akuiteo'"></option>
+								</select>
+                                <span th:if="${#fields.hasErrors('dossier.type')}" th:errors="${livraisonPackForm.dossier.type}" class="text-danger"></span>								
+							</div>                             
+                            <div class="form-group col-md-6">
+                                <label for="dossier.responsable" class="col-form-label">Responsable*</label>
+                                <input type="text" th:field="${livraisonPackForm.dossier.responsable}" class="form-control">
+                                <span th:if="${#fields.hasErrors('dossier.responsable')}" th:errors="${livraisonPackForm.dossier.responsable}" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="description" class="col-form-label">Description</label>
+                                <input type="text" th:field="${livraisonPackForm.intervention.description}" class="form-control">
+                                <!-- <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></span> -->
+                            </div>	                           
+<!-- 						<div class="form-group col-md-6">
+								<label for="dateDebut" class="col-form-label">Date de cr&eacute;ation</label> 
+								<input type="text" th:field="*{dateDebut}" class="form-control" id="dateDebut"> 
+								<span th:if="${#fields.hasErrors('dateDebut')}" th:errors="*{dateDebut}" class="text-danger"></span>
+							</div>                        
+							
+							<div class="form-group col-md-6">
+	                            <label for="vpnIp" class="col-form-label">Url</label>
+	                            <input type="text" th:field="*{urlAkuiteo}" class="form-control" id="urlAkuiteo" >
+	                        </div>
+ -->
+ 							<div class="form-group col-md-6">
+								<label for="dossier.etat" class="col-form-label">Etat du dossier</label> 
+								<select th:field="${livraisonPackForm.dossier.etat.id}"  class="form-control">
+									<option disabled selected th:value="0">Selectionnez un etat d'avancement ...</option>
+									<option th:each="etat : ${etats}"
+                                 			th:value="${etat.id}"
+                                 			th:text="${etat.libelle}">
+                         			</option>
+								</select>
+								<span th:if="${#fields.hasErrors('dossier.etat')}" th:errors="${livraisonPackForm.dossier.etat}" class="text-danger"></span>								
+							</div>
+							
+							
+							
+							<div class="form-group col-md-6">
+								<label for="interventionType" class="col-form-label">Type</label> 
+								<select th:field="${livraisonPackForm.intervention.type}"  class="form-control">
+									<option selected th:value="''">Type d'intervention ...</option>
+									<option th:value="'Developpement'" 	th:text="'Developpement'">	</option>
+									<option th:value="'Parametrage'" 	th:text="'Param&eacute;trage'">	</option>
+									<option th:value="'Assistance'" 	th:text="'Assistance'">		</option>
+									<option th:value="'Correction'" 	th:text="'Correction'">		</option>
+									<option th:value="'Evolution'" 		th:text="'Evolution'">		</option>
+									<option th:value="'Migration 4.3'" 	th:text="'Migration 4.3'">	</option>
+									<option th:value="'Migration 5.0'" 	th:text="'Migration 5.0'">	</option>
+								</select>
+							</div>	
+<!--  							<div class="form-group col-md-6">
+								<label for="etatInterventionType" class="col-form-label">Etat de intervention</label> 
+								<select th:field="${livraisonPackForm.intervention.etat.id}"  class="form-control">
+									<option disabled selected th:value="0">Selectionnez un etat d'avancement ...</option>
+									<option th:each="etat : ${etats}"
+                                 			th:value="${etat.id}"
+                                 			th:text="${etat.libelle}">
+                         			</option>
+								</select>
+								<span th:if="${#fields.hasErrors('etat')}" th:errors="*{etat}" class="text-danger"></span>								
+							</div>  -->                                                                                
+
+<!--                        <div class="form-group col-md-6">
+                                <label for="responsableIntervention" class="col-form-label">Responsable</label>
+                                <input type="text" th:field="${livraisonPackForm.intervention.responsable}" class="form-control">
+                            </div>  --> 
+                            
+                            <div class="form-group col-md-12">
+                                <label for="detail" class="col-form-label">Details</label>
+                                <textarea rows="5" cols="33" type="text" th:field="${livraisonPackForm.intervention.detail}" class="form-control"></textarea>
+                                <!-- <span th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}" class="text-danger"></span> -->
+                            </div>	 							
+							
+							
+						</div>
+						<!-- DOSSIER FIN  -->	
+						
+						
+						
+												
+
+						
+												
+						<!-- LIVRAISON  -->	
+						<div class="row">
+							<h3  class="form-group col-md-10" >Information livraison</h3>
+							<br/><br/><br/>
+							<!-- <div class="form-group col-md-6"></div> -->   
+ 							<div class="form-group col-md-6">
+								<label for="dateLivraison" class="col-form-label">Date de livraison</label> 
+								<input type="text" th:field="${livraisonPackForm.livraison.dateLivraison}" class="form-control" id = "dateLivraisonPack"> 
+								<!-- <span th:if="${#fields.hasErrors('dateLivraison')}" th:errors="*{dateLivraison}" class="text-danger"></span> -->
+							</div>      
+							<!-- 							
+							<div class="form-group col-md-6">
+								<label for="dateFin" class="col-form-label">Date de fin</label> 
+								<input type="text" th:field="*{dateFin}" class="form-control" id="dateFin"> 
+								<span th:if="${#fields.hasErrors('dateFin')}" th:errors="*{dateFin}" class="text-danger"></span>
+							</div>  
+							--> 
+							<div class="form-group col-md-6">
+								<label for="livraisonType" class="col-form-label">Type</label> 
+								<select th:field="${livraisonPackForm.livraison.type}"  class="form-control">
+									<option selected th:value="''">Type d'livraison ...</option>
+									<option th:value="'Developpement'" 	th:text="'Developpement'">	</option>
+									<option th:value="'Parametrage'" 	th:text="'Param&eacute;trage'">	</option>
+									<option th:value="'Assistance'" 	th:text="'Assistance'">		</option>
+									<option th:value="'Correction'" 	th:text="'Correction'">		</option>
+									<option th:value="'Evolution'" 		th:text="'Evolution'">		</option>
+									<option th:value="'Migration 4.3'" 	th:text="'Migration 4.3'">	</option>
+									<option th:value="'Migration 5.0'" 	th:text="'Migration 5.0'">	</option>
+								</select>
+							</div>	
+ 							<div class="form-group col-md-6">
+								<label for="etatLivraisonType" class="col-form-label">Etat de livraison</label> 
+								<select th:field="${livraisonPackForm.livraison.etat.id}"  class="form-control">
+									<option disabled selected th:value="0">Selectionnez un etat d'avancement ...</option>
+									<option th:each="etat : ${etats}"
+                                 			th:value="${etat.id}"
+                                 			th:text="${etat.libelle}">
+                         			</option>
+								</select>
+								<!-- <span th:if="${#fields.hasErrors('etat')}" th:errors="*{etat}" class="text-danger"></span> -->								
+							</div>                                                                                 
+                            <div class="form-group col-md-6">
+                                <label for="livraisonPackForm.livraison.description" class="col-form-label">Description</label>
+                                <input type="text" th:field="${livraisonPackForm.livraison.description}" class="form-control" >
+                                <!-- <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></span> -->
+                            </div>	
+                            <div class="form-group col-md-6">
+                                <label for="livraisonPackForm.livraison.responsable" class="col-form-label">Responsable</label>
+                                <input type="text" th:field="${livraisonPackForm.livraison.responsable}" class="form-control"  >
+                                <!-- <span th:if="${#fields.hasErrors('responsable')}" th:errors="*{responsable}" class="text-danger"></span>  -->
+                            </div>                              
+                            <div class="form-group col-md-6">
+                                <label for="livraisonPackForm.livraison.nomPackage" class="col-form-label">Nom du package</label>
+                                <input type="text" th:field="${livraisonPackForm.livraison.nomPackage}" id = "nomLivraisonPackage" class="form-control" readonly>
+                                <input type="hidden" id = "nomPackage" />
+                                
+                               <!--  <span th:if="${#fields.hasErrors('nomPackage')}" th:errors="*{nomPackage}" class="text-danger"></span>  -->                               
+                            </div> 
+								<!-- <legend>Projets</legend> -->
+							<div class="form-group col-md-6"></div>								
+								<fieldset class="form-group col-md-2">
+								<div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox" id ="checkbox1" onclick="updateProjectList(this);" value="AIL">AzurInvoiceLibrary</label></div>
+								<div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox" id ="checkbox2" onclick="updateProjectList(this);" value="ACL">AzurComponentLibrary</label></div>
+								</fieldset>
+								<fieldset class="form-group col-md-2">
+								<div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox" id ="checkbox3" onclick="updateProjectList(this);" value="PPFL">PreParametreFL</label></div>
+								<div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox" id ="checkbox4" onclick="updateProjectList(this);" value="IVADON">IvyAddOns</label></div>
+								</fieldset>
+								<fieldset class="form-group col-md-2">
+								<div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox" id ="checkbox5" onclick="updateProjectList(this);" value="IVCOMP">IvyComponent</label></div>
+								<div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox" id ="checkbox6" onclick="updateProjectList(this);" value="WKFLUI">WorkflowUI</label></div>
+								</fieldset>
+<!--                             <div class="form-group col-md-6">
+                                <label for="livraisonPackForm.livraison.idSvn" class="col-form-label">Id SVN</label>
+                                <input type="text" th:field="${livraisonPackForm.livraison.idSvn}" class="form-control" id="livraisonPackForm.livraison.idSvn" >
+                                <span th:if="${#fields.hasErrors('idSvn')}" th:errors="*{idSvn}" class="text-danger"></span>                                
+                            </div>   -->
+	                        <div class="form-group col-md-12" style = "text-align: center; font-size: 36px;" id="DisplayNomDuPackage"></div>                                                                                      
+                            <div class="form-group col-md-12">
+                                <label for="livraisonPackForm.livraison.detail" class="col-form-label">Details</label>
+                                <textarea rows="5" cols="33" type="text" th:field="${livraisonPackForm.livraison.detail}" class="form-control"></textarea>
+                                <!-- <span th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}" class="text-danger"></span> -->
+                            </div>	
+                        </div>
+						<!-- LIVRAISON FIN -->							
+                        <div >
+                            <div style = "text-align: center;">
+                                <button type="submit" class="btn btn-warning" style = "width: 100%;" onclick="return insertLivPack();" >Ajouter</button>
+<!--                                 <button type="button" class="btn btn-warning" style = "width: 100%;" onclick="insertLivPack();" name="insertlivpack" id="insertlivpack">Ajouter</button>
+ -->                            </div>
+                        </div>   
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+        
+        <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+        
+        <script  th:inline="javascript">
+        
+        	$(document).ready(function() {// alert("Config ==> clientId : " + $("#clientId").val());
+        	});	
+        	
+        	function insertLivPack() {
+        		/*
+				 alert("insertLivPack");
+				 alert("reference = " + $("#reference").val() + " / nomPackage = " + $("#nomPackage").val());
+				  alert("split length = " +  $("#nomPackage").val().split("_").length);
+				  alert("split [0] = " +  $("#nomPackage").val().split("_")[0]);
+				 */ 
+			    //var projetslist = $("#projet").val();
+			    
+			   if($("#reference").val() == "") {
+				    alert("Nom  du package non valide ! la r\351f\351rence est obligatoire.");
+				 	return false;
+			   
+			   } else if ($("#nomPackage").val() ==  $("#reference").val() || $("#nomPackage").val().split("_").length <= 1  ) {
+				   alert("Nom  du package non valide ! Au moins un projet doit \352tre selectionn\351");
+				   return false
+			   } else {
+				   return true;
+			   }
+			}
+			
+			function updateNomPackage(reference) {
+				
+				$("#nomPackage").val(reference.value);
+			}
+			
+			
+        	function updateProjectList(checkbox) {
+        		var nomPackage = $("#nomPackage").val();
+				
+        		if($("#reference").val() == "" ){
+        			alert("reference dossier vide ! ");
+        			checkbox.checked = false;
+        			return false;
+        		}
+
+        		if(checkbox.checked) {
+        			$("#nomPackage").val(nomPackage + "_" + checkbox.value );
+        		} else {
+        			var pack = nomPackage.replace("_" + checkbox.value, "");
+        			$("#nomPackage").val(pack);
+        		}
+        		
+        		var today = new Date();  
+        		var now = today.toLocaleString('fr-FR');
+        		var dd = now.slice(0,2);
+        		var mm = now.slice(3,5);
+        		var yyyy = now.slice(6,10);
+        		var hh = now.slice(13,15);
+        		var mn = now.slice(16,18);
+        		var ss = now.slice(19,21);
+                
+        		$("#nomLivraisonPackage").val($("#nomPackage").val() + "_" +yyyy+mm+dd+hh+mn+ss + ".zip"); 
+        		$("#DisplayNomDuPackage").html("<b>" + $("#nomLivraisonPackage").val() + "</b>"); 
+        		
+        	}
+        
+        </script>

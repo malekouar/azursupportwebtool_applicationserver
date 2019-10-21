@@ -15,6 +15,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 
 /**
  * The persistent class for the intervention database table.
@@ -31,10 +34,12 @@ public class Intervention {
 	private long id;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
 	@Column(name="date_debut")
 	private Date dateDebut;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
 	@Column(name="date_fin")
 	private Date dateFin;
 

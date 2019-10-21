@@ -13,6 +13,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 /**
@@ -30,9 +33,8 @@ public class Livraison {
 	private long id;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")	
 	@Column(name="date_livraison")
-
-	@NotBlank(message = "date obligatoire")
 	private Date dateLivraison;
 
 	@NotBlank(message = "Description obligatoire")
@@ -42,7 +44,7 @@ public class Livraison {
 	private String detail;
 
 	@Column(name="id_svn")
-	@NotBlank(message = "Id SVN obligatoire")	
+	@NotNull(message = "Id SVN obligatoire")	
 	private long idSvn;
 
 	@Column(name="nom_package")

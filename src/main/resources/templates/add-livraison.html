@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{fragments/main_layout}">
+    <head>
+        <title>Ajouter livraison</title>
+    </head>
+    <body>
+        <div  layout:fragment="content" class="container my-5">
+            <h2 class="mb-5">Nouvelle Livraison</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <form action="#" th:action="@{/livraison/add}" th:object="${livraison}" method="post">
+                        <div class="row">
+					  	   <div class="form-group col-md-6" th:switch="*{id}">
+								<label for="intervention.id" class="col-form-label">Intervention</label>                         
+	                        	<p th:case="-2"> 
+									<select th:field="*{intervention.id}"  class="form-control">
+										<option disabled selected th:value="0">Selectionnez une intervention ...</option>
+										<option th:each="intervention : ${interventions}"
+	                                 			th:value="${intervention.id}"
+	                                 			th:text="${intervention.description}">
+	                         			</option>
+									</select>
+									<span th:if="${#fields.hasErrors('intervention')}" th:errors="*{intervention}" class="text-danger"></span>                      
+	                        	</p>	
+								<p th:case="-1">
+									 <input type="hidden" th:field="*{intervention.id}" th:value="*{intervention.id}" />  
+									<span th:text="*{intervention.reference}"></span>
+								</p>                        					 
+							</div>                   
+							<div class="form-group col-md-6"></div>   
+ 							<div class="form-group col-md-6">
+								<label for="dateLivraison" class="col-form-label">Date de livraison</label> 
+								<input type="text" th:field="*{dateLivraison}" class="form-control" id="dateLivraison"> 
+								<span th:if="${#fields.hasErrors('dateLivraison')}" th:errors="*{dateLivraison}" class="text-danger"></span>
+							</div>      
+							                  
+<!-- 							<div class="form-group col-md-6">
+								<label for="dateFin" class="col-form-label">Date de fin</label> 
+								<input type="text" th:field="*{dateFin}" class="form-control" id="dateFin"> 
+								<span th:if="${#fields.hasErrors('dateFin')}" th:errors="*{dateFin}" class="text-danger"></span>
+							</div>  --> 
+							                  
+							<div class="form-group col-md-6">
+								<label for="vpnType" class="col-form-label">Type</label> 
+								<select th:field="*{type}"  class="form-control">
+									<option selected th:value="''">Type d'livraison ...</option>
+									<option th:value="'Developpement'" 	th:text="'Developpement'">	</option>
+									<option th:value="'Parametrage'" 	th:text="'Param&eacute;trage'">	</option>
+									<option th:value="'Assistance'" 	th:text="'Assistance'">		</option>
+									<option th:value="'Correction'" 	th:text="'Correction'">		</option>
+									<option th:value="'Evolution'" 		th:text="'Evolution'">		</option>
+									<option th:value="'Migration 4.3'" 	th:text="'Migration 4.3'">	</option>
+									<option th:value="'Migration 5.0'" 	th:text="'Migration 5.0'">	</option>
+								</select>
+							</div>	
+ 							<div class="form-group col-md-6">
+								<label for="vpnType" class="col-form-label">Etat de livraison</label> 
+								<select th:field="*{etat.id}"  class="form-control">
+									<option disabled selected th:value="0">Selectionnez un etat d'avancement ...</option>
+									<option th:each="etat : ${etats}"
+                                 			th:value="${etat.id}"
+                                 			th:text="${etat.libelle}">
+                         			</option>
+								</select>
+								<!-- <span th:if="${#fields.hasErrors('etat')}" th:errors="*{etat}" class="text-danger"></span> -->								
+							</div>                                                                                 
+                            <div class="form-group col-md-6">
+                                <label for="description" class="col-form-label">Description</label>
+                                <input type="text" th:field="*{description}" class="form-control" id="reference" >
+                                <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></span>
+                            </div>	
+                            <div class="form-group col-md-6">
+                                <label for="responsable" class="col-form-label">Responsable</label>
+                                <input type="text" th:field="*{responsable}" class="form-control" id="responsable" >
+                                <span th:if="${#fields.hasErrors('responsable')}" th:errors="*{responsable}" class="text-danger"></span> 
+                            </div>                              
+                            <div class="form-group col-md-6">
+                                <label for="nomPackage" class="col-form-label">Nom du package</label>
+                                <input type="text" th:field="*{nomPackage}" class="form-control" id="nomPackage" >
+                                <span th:if="${#fields.hasErrors('nomPackage')}" th:errors="*{nomPackage}" class="text-danger"></span>                                
+                            </div> 
+                            <div class="form-group col-md-6">
+                                <label for="idSvn" class="col-form-label">Id SVN</label>
+                                <input type="text" th:field="*{idSvn}" class="form-control" id="idSvn" >
+                                <span th:if="${#fields.hasErrors('idSvn')}" th:errors="*{idSvn}" class="text-danger"></span>                                
+                            </div>                                                           
+                            <div class="form-group col-md-6">
+                                <label for="detail" class="col-form-label">Details</label>
+                                <textarea rows="5" cols="33" type="text" th:field="*{detail}" class="form-control" id="reference" ></textarea>
+                                <span th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}" class="text-danger"></span>
+                            </div>	                                                        
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mt-5">
+                                <button type="submit" class="btn btn-warning">Ajouter</button>
+                            </div>
+                        </div>    
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

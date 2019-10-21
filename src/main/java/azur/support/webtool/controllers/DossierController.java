@@ -61,7 +61,7 @@ public class DossierController {
     }
 
     @PostMapping("/dossier/add")
-    public String addDossier1(@Valid Dossier dossier, BindingResult result, Model model) {
+    public String addDossier1(@Valid Dossier dossier, BindingResult result, Model model) throws Exception {
         if (result.hasErrors()) {
         	model.addAttribute("client", clientRepository.findById(dossier.getClient().getId()).orElseThrow(() -> new IllegalArgumentException("Invalid dossier Id:" + (dossier.getClient().getId()))));
         	model.addAttribute("etats", etatRepository.findAll());        	

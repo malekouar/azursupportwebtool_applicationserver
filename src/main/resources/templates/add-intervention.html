@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{fragments/main_layout}">
+    <head>
+        <title>Ajouter intervention</title>
+    </head>
+    <body>
+        <div  layout:fragment="content" class="container my-5">
+            <h2 class="mb-5">Nouvelle Intervention</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <form action="#" th:action="@{/intervention/add}" th:object="${intervention}" method="post">
+                        <div class="row">
+					  	   <div class="form-group col-md-6" th:switch="*{id}">
+								<label for="dossier.id" class="col-form-label">Dossier</label>                         
+	                        	<p th:case="-2"> 
+									<select th:field="*{dossier.id}"  class="form-control">
+										<option disabled selected th:value="0">Selectionnez un dossier ...</option>
+										<option th:each="dossier : ${dossiers}"
+	                                 			th:value="${dossier.id}"
+	                                 			th:text="${dossier.reference}">
+	                         			</option>
+									</select>
+									<span th:if="${#fields.hasErrors('dossier')}" th:errors="*{dossier}" class="text-danger"></span>                      
+	                        	</p>	
+								<p th:case="-1">
+									 <input type="hidden" th:field="*{dossier.id}" th:value="*{dossier.id}" />  
+									<span th:text="*{dossier.reference}"></span>
+								</p>                        					 
+							</div>                   
+							<div class="form-group col-md-6"></div>   
+							                     
+ 							<div class="form-group col-md-6">
+								<label for="dateDebut" class="col-form-label">Date de d&eacute;but</label> 
+								<input type="text" th:field="*{dateDebut}" class="form-control" id="dateDebut"> 
+								<span th:if="${#fields.hasErrors('dateDebut')}" th:errors="*{dateDebut}" class="text-danger"></span>
+							</div>      
+							                  
+							<div class="form-group col-md-6">
+								<label for="dateFin" class="col-form-label">Date de fin</label> 
+								<input type="text" th:field="*{dateFin}" class="form-control" id="dateFin"> 
+								<span th:if="${#fields.hasErrors('dateFin')}" th:errors="*{dateFin}" class="text-danger"></span>
+							</div>  
+							                  
+							<div class="form-group col-md-6">
+								<label for="vpnType" class="col-form-label">Type</label> 
+								<select th:field="*{type}"  class="form-control">
+									<option selected th:value="''">Type d'intervention ...</option>
+									<option th:value="'Developpement'" 	th:text="'Developpement'">	</option>
+									<option th:value="'Parametrage'" 	th:text="'Param&eacute;trage'">	</option>
+									<option th:value="'Assistance'" 	th:text="'Assistance'">		</option>
+									<option th:value="'Correction'" 	th:text="'Correction'">		</option>
+									<option th:value="'Evolution'" 		th:text="'Evolution'">		</option>
+									<option th:value="'Migration 4.3'" 	th:text="'Migration 4.3'">	</option>
+									<option th:value="'Migration 5.0'" 	th:text="'Migration 5.0'">	</option>
+								</select>
+							</div>	
+ 							<div class="form-group col-md-6">
+								<label for="vpnType" class="col-form-label">Etat de intervention</label> 
+								<select th:field="*{etat.id}"  class="form-control">
+									<option disabled selected th:value="0">Selectionnez un etat d'avancement ...</option>
+									<option th:each="etat : ${etats}"
+                                 			th:value="${etat.id}"
+                                 			th:text="${etat.libelle}">
+                         			</option>
+								</select>
+								<!-- <span th:if="${#fields.hasErrors('etat')}" th:errors="*{etat}" class="text-danger"></span> -->								
+							</div>                                                                                 
+                            <div class="form-group col-md-6">
+                                <label for="description" class="col-form-label">Description</label>
+                                <input type="text" th:field="*{description}" class="form-control" id="reference" >
+                                <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></span>
+                            </div>	
+                            <div class="form-group col-md-6">
+                                <label for="responsable" class="col-form-label">Responsable</label>
+                                <input type="text" th:field="*{responsable}" class="form-control" id="responsable" >
+                            </div>                              
+                            <div class="form-group col-md-6">
+                                <label for="detail" class="col-form-label">Details</label>
+                                <textarea rows="5" cols="33" type="text" th:field="*{detail}" class="form-control" id="reference" ></textarea>
+                                <span th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}" class="text-danger"></span>
+                            </div>	                            
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mt-5">
+                                <button type="submit" class="btn btn-warning">Ajouter</button>
+                            </div>
+                        </div>    
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

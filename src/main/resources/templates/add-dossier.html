@@ -36,6 +36,7 @@
 							<div class="form-group col-md-6">
 								<label for="dateDebut" class="col-form-label">Date de cr&eacute;ation</label> 
 								<input type="text" th:field="*{dateDebut}" class="form-control" id="dateDebut"> 
+								<span th:if="${#fields.hasErrors('dateDebut')}" th:errors="*{dateDebut}" class="text-danger"></span>
 							</div>                        
                         
 							<div class="form-group col-md-6">

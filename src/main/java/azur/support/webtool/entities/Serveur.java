@@ -9,9 +9,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-import com.sun.istack.internal.NotNull;
-
-
 /**
  * The persistent class for the serveur database table.
  * 
@@ -45,7 +42,7 @@ public class Serveur {
 	private String serveurType;
 
 	//bi-directional many-to-one association to Client
-	@NotNull
+	//@NotNull
 	@ManyToOne
 	private Client client;
 	
