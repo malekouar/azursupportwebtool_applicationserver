@@ -94,7 +94,7 @@
 								if( $("#retourconfig").val() == 'OK') {
 									$.ajax({
 										type: 'GET',
-										url: '/springbootapp/client/wizard/editconfig/'+$("#clientId").val(),
+										url: 'wizard/editconfig/'+$("#clientId").val(),
 										timeout: 3000,
 										success: function(data) {
 										  $('#etape2').html(data);
@@ -106,7 +106,7 @@
 								} else {
 									$.ajax({
 										type: 'GET',
-										url: '/springbootapp/client/wizard/newconfig/'+$("#clientId").val(),
+										url: 'wizard/newconfig/'+$("#clientId").val(),
 										timeout: 3000,
 										success: function(data) {
 										  $('#etape2').html(data);
@@ -124,8 +124,8 @@
 								if( $("#retourserveur").val() == 'OK') {
 									$.ajax({
 										type: 'GET',
-										url: '/springbootapp/client/wizard/editserveur/'+$("#clientId").val(),
-										//url: '/springbootapp/client/wizard/newserveur/'+$("#clientId").val(),
+										url: 'wizard/editserveur/'+$("#clientId").val(),
+										//url: 'wizard/newserveur/'+$("#clientId").val(),
 										timeout: 3000,
 										success: function(data) {
 										  $('#etape3').html(data);
@@ -138,7 +138,7 @@
 								
 									$.ajax({
 										type: 'GET',
-										url: '/springbootapp/client/wizard/newserveur/'+$("#clientId").val(),
+										url: 'wizard/newserveur/'+$("#clientId").val(),
 										timeout: 3000,
 										success: function(data) {
 										  $('#etape3').html(data);
@@ -154,7 +154,7 @@
 								$("#step").val('dossier');
 								$.ajax({
 									type: 'GET',
-									url: '/springbootapp/client/wizard/newdossier',
+									url: 'wizard/newdossier',
 									timeout: 3000,
 									success: function(data) {
 									  $('#etape4').html(data);
@@ -174,7 +174,7 @@
 					
 					$.ajax({
 						type: 'GET',
-						url: '/springbootapp/client/wizard/newclient',
+						url: 'wizard/newclient',
 						timeout: 3000,
 						success: function(data) {
 						  $('#etape1').html(data);

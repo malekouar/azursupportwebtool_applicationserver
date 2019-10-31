@@ -1,9 +1,11 @@
 package azur.support.webtool.controllers;
 
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,8 +30,21 @@ public class ClientController {
     }
 
     @GetMapping("/clients")
-    public String getAll(Model model) {
-        model.addAttribute("clients", clientRepository.findAll());
+    public String getAll(HttpServletRequest request, Model model) {
+    	
+        int page = 5; //default page number is 0 (yes it is weird)
+        int size = 15; //default page size is 10    	
+    	
+        if (request.getParameter("page") != null && !request.getParameter("page").isEmpty()) {
+            page = Integer.parseInt(request.getParameter("page")) - 1;
+        }
+
+        if (request.getParameter("size") != null && !request.getParameter("size").isEmpty()) {
+            size = Integer.parseInt(request.getParameter("size"));
+        }    	
+    	
+    	
+        model.addAttribute("clients", clientRepository.findAll(PageRequest.of(page, size)));
         return "clients";
     }
 
@@ -155,7 +170,7 @@ public class ClientController {
     public String updateClient(@PathVariable("id") int id, @Valid Client client, BindingResult result, Model model) {
         if (result.hasErrors()) {
             client.setId(id);
-            return "clients";
+            return "update-client";
         }
         
         clientRepository.save(client);

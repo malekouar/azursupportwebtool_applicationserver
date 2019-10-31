@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{fragments/main_layout}">
+    <head>
+        <title>Modification de Livraison</title>
+    </head>
+    <body>
+        <div  layout:fragment="content" class="container my-5 mw-100">
+            <div class="row">
+            	<h2 class="mb-6">Modification de livraison</h2>
+            	<br/><br/><br/><br/>
+            </div>
+            <div class="row">
+                <div class = "conteneur" >
+                    <form action="#" th:action="@{/livraisonPack/update}" th:object="${livraisonPack}" method="post">
+						<input type="hidden" th:field="${livraisonPack.client.id}" class="form-control" id="client.id"/>                        
+						<input type="hidden" th:field="${livraisonPack.dossier.id}" class="form-control" id="dossier.id"/>                        
+						<input type="hidden" th:field="${livraisonPack.intervention.id}" class="form-control" id="intervention.id"/>                        
+						<input type="hidden" th:field="${livraisonPack.livraison.id}" class="form-control" id="livraison.id"/>                        
+                        
+                        <div class="row">
+							<div class="form-group col-md-6">
+								<h3>Client</h3><br/>
+								<input readonly="readonly" type="text" disabled th:field="${livraisonPack.client.raisonSociale}" class="form-control" id="client.raisonSociale"/>
+							</div>
+						</div>
+						<!-- DOSSIER -->
+						<div class="row">
+							<h3  class="form-group col-md-10" >Information Dossier</h3>                       
+                            <div class="form-group col-md-6">
+                                <label for="dossier.reference" class="col-form-label">R&eacute;f&eacute;rence (N&deg;)*</label>
+                                <input  readonly="readonly" type="text" th:field="${livraisonPack.dossier.reference}" class="form-control" id="reference">
+                                <span th:if="${#fields.hasErrors('dossier.reference')}" th:errors="${livraisonPack.dossier.reference}" class="text-danger"></span>
+                            </div>
+							<div class="form-group col-md-6">
+								<label for="dossier.type" class="col-form-label">Type</label> 
+                                <input  readonly="readonly" type="text" th:field="${livraisonPack.dossier.type}" class="form-control">
+                                <span th:if="${#fields.hasErrors('dossier.type')}" th:errors="${livraisonPack.dossier.type}" class="text-danger"></span>								
+							</div>                             
+                            <div class="form-group col-md-6">
+                                <label for="dossier.responsable" class="col-form-label">Responsable*</label>
+                                <input readonly="readonly" type="text" th:field="${livraisonPack.dossier.responsable}" class="form-control">
+                                <span th:if="${#fields.hasErrors('dossier.responsable')}" th:errors="${livraisonPack.dossier.responsable}" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="description" class="col-form-label">Description</label>
+                                <input readonly="readonly" type="text" th:field="${livraisonPack.intervention.description}" class="form-control">
+                                <!-- <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></span> -->
+                            </div>	                           
+ 							<div class="form-group col-md-6">
+								<label for="dossier.etat" class="col-form-label">Etat du dossier</label> 
+                                <input  readonly="readonly" type="text" th:field="${livraisonPack.dossier.etat.id}" class="form-control">								
+								<span th:if="${#fields.hasErrors('dossier.etat')}" th:errors="${livraisonPack.dossier.etat}" class="text-danger"></span>								
+							</div>
+							<div class="form-group col-md-6">
+								<label for="interventionType" class="col-form-label">Type</label> 
+								<input  readonly="readonly" type="text" th:field="${livraisonPack.intervention.type}" class="form-control">							
+								
+							</div>	
+                            <div class="form-group col-md-12">
+                                <label for="detail" class="col-form-label">Details</label>
+                                <textarea readonly="readonly" rows="5" cols="33" type="text" th:field="${livraisonPack.intervention.detail}" class="form-control"></textarea>
+                                <!-- <span th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}" class="text-danger"></span> -->
+                            </div>	 							
+						</div>
+						<!-- DOSSIER FIN  -->	
+						<!-- LIVRAISON  -->	
+						<div class="row">
+							<h3  class="form-group col-md-10" >Information livraison</h3>
+							<br/><br/><br/>
+							<!-- <div class="form-group col-md-6"></div> -->   
+ 							<div class="form-group col-md-6">
+								<label for="dateLivraison" class="col-form-label">Date de livraison</label> 
+								<input type="text" th:field="${livraisonPack.livraison.dateLivraison}" class="form-control" id = "dateLivraisonPack"> 
+								<!-- <span th:if="${#fields.hasErrors('dateLivraison')}" th:errors="*{dateLivraison}" class="text-danger"></span> -->
+							</div>      
+							<div class="form-group col-md-6">
+								<label for="livraisonType" class="col-form-label">Type</label> 
+								<select th:field="${livraisonPack.livraison.type}"  class="form-control">
+									<option selected th:value="''">Type d'livraison ...</option>
+									<option th:value="'Developpement'" 	th:text="'Developpement'">	</option>
+									<option th:value="'Parametrage'" 	th:text="'Param&eacute;trage'">	</option>
+									<option th:value="'Assistance'" 	th:text="'Assistance'">		</option>
+									<option th:value="'Correction'" 	th:text="'Correction'">		</option>
+									<option th:value="'Evolution'" 		th:text="'Evolution'">		</option>
+									<option th:value="'Migration 4.3'" 	th:text="'Migration 4.3'">	</option>
+									<option th:value="'Migration 5.0'" 	th:text="'Migration 5.0'">	</option>
+								</select>
+							</div>	
+ 							<div class="form-group col-md-6">
+								<label for="etatLivraisonType" class="col-form-label">Etat de livraison</label> 
+								<select th:field="${livraisonPack.livraison.etat.id}"  class="form-control">
+									<option disabled selected th:value="0">Selectionnez un etat d'avancement ...</option>
+									<option th:each="etat : ${etats}"
+                                 			th:value="${etat.id}"
+                                 			th:text="${etat.libelle}">
+                         			</option>
+								</select>
+								<!-- <span th:if="${#fields.hasErrors('etat')}" th:errors="*{etat}" class="text-danger"></span> -->								
+							</div>                                                                                 
+                            <div class="form-group col-md-6">
+                                <label for="livraisonPack.livraison.description" class="col-form-label">Description</label>
+                                <input type="text" th:field="${livraisonPack.livraison.description}" class="form-control" >
+                                <!-- <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></span> -->
+                            </div>	
+                            <div class="form-group col-md-6">
+                                <label for="livraisonPack.livraison.responsable" class="col-form-label">Responsable</label>
+                                <input type="text" th:field="${livraisonPack.livraison.responsable}" class="form-control"  >
+                                <!-- <span th:if="${#fields.hasErrors('responsable')}" th:errors="*{responsable}" class="text-danger"></span>  -->
+                            </div>                              
+                            <div class="form-group col-md-6">
+                                <label for="livraisonPack.livraison.nomPackage" class="col-form-label">Nom du package</label>
+                                <input type="text" th:field="${livraisonPack.livraison.nomPackage}" id = "nomLivraisonPackage" class="form-control" readonly>
+                                <input type="hidden" id = "nomPackage" />
+                                
+                               <!--  <span th:if="${#fields.hasErrors('nomPackage')}" th:errors="*{nomPackage}" class="text-danger"></span>  -->                               
+                            </div> 
+								<!-- <legend>Projets</legend> -->
+							<div class="form-group col-md-6"></div>								
+							<fieldset class="form-group col-md-2">
+							<div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox" id ="checkbox1" disabled="disabled"  value="AIL">AzurInvoiceLibrary</label></div>
+							<div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox" id ="checkbox2" disabled="disabled"  value="ACL">AzurComponentLibrary</label></div>
+							</fieldset>                                                                                                              
+							<fieldset class="form-group col-md-2">                                                                                   
+							<div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox" id ="checkbox3" disabled="disabled"  value="PPFLPrem">PreParametreFL Prem</label></div>
+							<div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox" id ="checkbox3" disabled="disabled"  value="PPFL">PreParametreFL</label></div>
+							</fieldset>                                                                                                              
+							<fieldset class="form-group col-md-2">                                                                                   
+							<div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox" id ="checkbox6" disabled="disabled"  value="WKFLUI">WorkflowUI</label></div>
+							<div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox" id ="checkbox4" disabled="disabled"  value="IVADON">IvyAddOns</label></div>
+							</fieldset>
+	                        <div class="form-group col-md-12" style = "text-align: center; font-size: 36px;" id="DisplayNomDuPackage"></div>                                                                                       
+                            <div class="form-group col-md-12">
+                                <label for="livraisonPack.livraison.detail" class="col-form-label">Details</label>
+                                <textarea rows="5" cols="33" type="text" th:field="${livraisonPack.livraison.detail}" class="form-control"></textarea>
+                                <!-- <span th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}" class="text-danger"></span> -->
+                            </div>	
+                        </div>
+						<!-- LIVRAISON FIN -->							
+                        <div >
+                            <div style = "text-align: center;">
+                                <button type="submit" class="btn btn-warning" style = "width: 40%;" onclick="return insertLivPack();" >Modifier</button>
+                                <a href="javascript: window.history.go(-1)" class="btn btn-danger" style = "width: 40%;">Annuler</a>
+                            </div>
+                        </div>   
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+        
+<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+<script  th:inline="javascript">
+        
+        	$(document).ready(function() {
+        	
+        		var nomPackage = $("#nomLivraisonPackage").val();
+        		$("#nomPackage").val(nomPackage);
+        		$("#DisplayNomDuPackage").val(nomPackage);
+        		if (nomPackage.includes("AIL"))		$("#checkbox1").attr("checked",true);
+        		if (nomPackage.includes("ACL"))		$("#checkbox2").attr("checked",true);
+        		if (nomPackage.includes("PPFL"))	$("#checkbox3").attr("checked",true);
+        		if (nomPackage.includes("IVADON"))	$("#checkbox4").attr("checked",true);
+        		if (nomPackage.includes("IVCOMP"))	$("#checkbox5").attr("checked",true);
+        		if (nomPackage.includes("WKFLUI"))	$("#checkbox6").attr("checked",true);
+        			
+        	});	
+        	
+        	function insertLivPack() {
+			   if($("#reference").val() == "") {
+				    alert("Nom  du package non valide ! la r\351f\351rence est obligatoire.");
+				 	return false;
+			   
+			   } else if ($("#nomPackage").val() ==  $("#reference").val() || $("#nomPackage").val().split("_").length <= 1  ) {
+				   alert("Nom  du package non valide ! Au moins un projet doit \352tre selectionn\351");
+				   return false
+			   } else {
+				   return true;
+			   }
+			}
+</script>

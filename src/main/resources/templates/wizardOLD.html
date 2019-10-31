@@ -5,7 +5,7 @@
 		<title>Wizard Clients</title>
 	</head>
     <body>
-        <div layout:fragment="content">
+        <div layout:fragment="content my-5 mw-100">
         <br/>
         <br/>
         <br/>
@@ -40,7 +40,7 @@
 					
 					$.ajax({
 						type: 'GET',
-						url: '/springbootapp/client/wizard/newclient',
+						url: '/supportwebtool/client/wizard/newclient',
 						timeout: 3000,
 						success: function(data) {
 						  $('#etape1').html(data);
@@ -51,7 +51,7 @@
 					
 					$.ajax({
 						type: 'GET',
-						url: '/springbootapp/client/wizard/newconfig',
+						url: '/supportwebtool/client/wizard/newconfig',
 						timeout: 3000,
 						success: function(data) {
 						  $('#etape2').html(data);
@@ -62,7 +62,7 @@
 									
 					$.ajax({
 						type: 'GET',
-						url: '/springbootapp/client/wizard/newserveur',
+						url: '/supportwebtool/client/wizard/newserveur',
 						timeout: 3000,
 						success: function(data) {
 						  $('#etape3').html(data);
@@ -73,7 +73,7 @@
 					
 					$.ajax({
 						type: 'GET',
-						url: '/springbootapp/client/wizard/newdossier',
+						url: '/supportwebtool/client/wizard/newdossier',
 						timeout: 3000,
 						success: function(data) {
 						  $('#etape4').html(data);

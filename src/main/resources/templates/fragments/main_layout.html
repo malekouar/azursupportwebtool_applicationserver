@@ -35,21 +35,17 @@
 
 		
 		<!--sidebar.html  that's here  -->	
-<!-- 		<div th:replace="fragments/sidebar :: sidebar"></div>
- -->	
-		<!--header.html  that's here  -->
-		<div class="container">
-
-		<!--header.html  that's here  -->
-		<div th:replace="fragments/header :: header"></div>
-			
-			<div layout:fragment="content">
-			<!--header.html  that's here  -->
-		</div>
-
+		<!-- <div th:replace="fragments/sidebar :: sidebar"></div> -->	
 		
+		<!--header.html  that's here  -->
+		<div class="container-fluid">
+			<!--header.html  that's here  -->
+			<div th:replace="fragments/header :: header"></div>
+			<!--contents html  that's here  -->
+			<div layout:fragment="content"></div>
+			<!--footer.html  that's here  -->
+			<div th:replace="fragments/footer :: footer"></div>
 		</div>
-		<!--footer.html  that's here  -->
-		<div th:replace="fragments/footer :: footer"></div>
+
 	</body>
 </html>

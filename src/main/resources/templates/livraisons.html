@@ -6,34 +6,55 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<div th:switch="${livraisons}" class="container my-5">
+		<div th:switch="${livraisons}" class="container my-5 mw-100">
 			<div>
 				<h2 th:case="null">Pas encore de livraison !</h2>
 				<div th:case="*">
 					<h2 class="my-6">Liste des livraisons</h2>
 					<div>
-						<a th:href="@{/livraison/new}" class="badge badge-warning">Ajouter une livraison</a> &nbsp; &nbsp; &nbsp;
-						<a th:href="@{/livraisonPack/new}" class="badge badge-info">Ajouter une livraison packag&eacute;e</a> 
+<!-- 						<a th:href="@{/livraison/new}" class="badge badge-warning">Ajouter une livraison</a> &nbsp; &nbsp; &nbsp; -->
+						<a th:href="@{/livraisonPack/new}" class="badge badge-info">Ajouter une livraison</a> 
 					</div>
 					<br />
-					<table class="table table-striped table-responsive-md">
+					<table class="table table-striped table-responsive-md" >
 						<thead>
 							<tr>
+								<th>Client</th>							
+								<th>Date Livraison</th>							
+								<th>Ref</th>							
 								<th>Type</th>
+								<th>Etat</th>							
 								<th>Description</th>
 								<th>Responsable</th>
+								<th>Package</th>
+								<th>Actions</th>								
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="livraison : ${livraisons}">							
+							<tr th:each="livraison : ${livraisons}">	
+								<!-- <td th:text="${livraison.intervention.dossier.client.raisonSociale}"></td> -->
+								<td th:title="${livraison.intervention.dossier.client.raisonSociale.length() > 10} ? ${livraison.intervention.dossier.client.raisonSociale} : ''" 
+									th:text="${livraison.intervention.dossier.client.raisonSociale.length() > 10} ? ${livraison.intervention.dossier.client.raisonSociale.substring(0,10)} + '...': ${livraison.intervention.dossier.client.raisonSociale}"></td>								
+																					
+								<!-- <td th:text="${livraison.dateLivraison}"></td> -->
+								<td th:text="${#dates.format(livraison.dateLivraison, 'dd-MMM-yyyy')}"></td>													
+								<td th:text="${livraison.intervention.dossier.reference}"></td>													
 								<td th:text="${livraison.type}"></td>
-								<td th:text="${livraison.description}"></td>
+								<td th:text="${livraison.etat.libelle}"></td>													
+								<!-- <td th:text="${livraison.description}"></td> -->
+								<td th:title="${livraison.description.length() > 25} ? ${livraison.description} : ''" 
+									th:text="${livraison.description.length() > 25} ? ${livraison.description.substring(0,25)} + '...': ${livraison.description}"></td>								
 								<td th:text="${livraison.responsable}"></td>								
-								<td>
-								<a th:href="@{/livraison/view/{id}(id=${livraison.id})}" class="badge badge-success">Consulter</a>
+								<!-- <td th:text="${livraison.nomPackage}"></td> -->		
+								<td th:title="${livraison.nomPackage.length() > 25} ? ${livraison.nomPackage} : ''" 
+									th:text="${livraison.nomPackage.length() > 25} ? ${livraison.nomPackage.substring(0,25)} + '...': ${livraison.nomPackage}"></td>								
+														
+								<td style="width: 151px;" >
+								<!-- <a th:href="@{/livraison/view/{id}(id=${livraison.id})}" class="badge badge-success">Consulter</a> -->
 								&nbsp;
-								<a th:href="@{/livraison/edit/{id}(id=${livraison.id})}" class="badge badge-info">Modifier</a>
-								&nbsp;<a th:href="@{/livraison/delete/{id}(id=${livraison.id})}" class="badge badge-danger">Supprimer</a></td>
+								<a th:href="@{/livraisonPack/edit/{id}(id=${livraison.id})}" class="badge badge-info">Modifier</a>
+								&nbsp;<a th:href="@{/livraison/delete/{id}(id=${livraison.id})}" class="badge badge-danger" onclick="return confirm('&ecirc;tes-vous s&ucirc;r ?');">Supprimer</a>
+								</td>
 							</tr>
 						</tbody>
 					</table>

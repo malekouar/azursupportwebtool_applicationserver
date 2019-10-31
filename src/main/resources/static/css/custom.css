@@ -1,64 +1,67 @@
-
-.input-group-addon {
-    
-    /*font-size: 1rem;
-    line-height: 1.5;*/
-    font-weight: 400;   
-    padding: .375rem .75rem;
-    margin-bottom: 0;
-    color: #495057;
-    text-align: center;
-    background-color: #e9ecef;  /* #e9ecef */
-    border: 1px solid #ced4da;
+.container-fluid {
+  padding-right: 10%;
+  padding-left: 10%;
+  margin-right: auto;
+  margin-left: auto;
+ 
 }
 
+.input-group-addon {
+	/*font-size: 1rem;
+    line-height: 1.5;*/
+	font-weight: 400;
+	padding: .375rem .75rem;
+	margin-bottom: 0;
+	color: #495057;
+	text-align: center;
+	background-color: #e9ecef; /* #e9ecef */
+	border: 1px solid #ced4da;
+}
 
 .conteneur {
-		
-		
-		width:100%;
+	width: 100%;
 }
 
 .blocked {
-
-		width:500px;
-		height:500px;
-	    padding:2px;
-  		border: 1px solid blue;    
-  		background-color: yellow; 
+	width: 500px;
+	height: 500px;
+	padding: 2px;
+	border: 1px solid blue;
+	background-color: yellow;
 }
 
 .blocked2 {
-			margin:10px; 
-		display:inline-block;	
-		position: relative;
-		left: 0;
-		top: 0;
-		 width:500px;
-		/*height:500px;
+	margin: 10px;
+	display: inline-block;
+	position: relative;
+	left: 0;
+	top: 0;
+	width: 500px;
+	/*height:500px;
 	   padding:2px;
   		border: 1px solid blue;  
-  		background-color: green; */  
+  		background-color: green; */
 }
 
-
 #one {
-		width: 200px;
-		background: #ccc;
-	}
+	width: 200px;
+	background: #ccc;
+}
 
-	#two {
-		display: inline-block;
-		background: blue;
-		position: relative;
-		left: 0;
-		width: 100px; height: 100px;
-	}
+#two {
+	display: inline-block;
+	background: blue;
+	position: relative;
+	left: 0;
+	width: 100px;
+	height: 100px;
+}
 
-	#three {
-		display: inline-block;
-		background: red;
-		position: relative;
-		left: 0;
-		width: 100px; height: 100px;
-	}
+#three {
+	display: inline-block;
+	background: red;
+	position: relative;
+	left: 0;
+	width: 100px;
+	height: 100px;
+}

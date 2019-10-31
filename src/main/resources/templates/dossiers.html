@@ -6,7 +6,7 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<div th:switch="${dossiers}" class="container my-5">
+		<div th:switch="${dossiers}" class="container my-5 mw-100">
 			<div>
 				<h2 th:case="null">Pas encore de dossier !</h2>
 				<div th:case="*">
@@ -18,16 +18,21 @@
 					<table class="table table-striped table-responsive-md">
 						<thead>
 							<tr>
+								<th>Client</th>
+								<th>Reference</th>
 								<th>Type</th>
-								<th>Url</th>
+<!-- 								<th>Url</th> -->
 								<th>Responsable</th>
+								<th>Actions</th>								
 							</tr>
 						</thead>
 
 						<tbody>
 							<tr th:each="dossier : ${dossiers}">							
+								<td th:text="${dossier.client.raisonSociale}"></td>
+								<td th:text="${dossier.reference}"></td>
 								<td th:text="${dossier.type}"></td>
-								<td th:text="${dossier.urlAkuiteo}"></td>
+<!-- 								<td th:text="${dossier.urlAkuiteo}"></td> -->
 								<td th:text="${dossier.responsable}"></td>								
 								<td>
 								<a th:href="@{/dossier/view/{id}(id=${dossier.id})}" class="badge badge-success">Consulter</a>

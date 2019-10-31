@@ -6,7 +6,7 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<div th:switch="${configs}" class="container my-5">
+		<div th:switch="${configs}" class="container my-5 mw-100">
 			<div>
 				<h2 th:case="null">Pas encore de config !</h2>
 				<div th:case="*">
@@ -24,6 +24,7 @@
 								<th>VPN IP</th>
 								<th>VPN Login</th>
 								<th>VPN Mot de passe</th>
+								<th>Actions</th>								
 							</tr>
 						</thead>
 

@@ -2,11 +2,11 @@
 <html xmlns:layout="http://www.w3.org/1999/xhtml"
 	layout:decorate="~{fragments/main_layout}">
 <head>
-<title>Liste des Dossiers</title>
+<title>Liste des serveurs</title>
 </head>
 <body>
 	<div layout:fragment="content">
-		<div th:switch="${serveurs}" class="container my-5">
+		<div th:switch="${serveurs}" class="container my-5 mw-100">
 			<div>
 				<h2 th:case="null">Pas encore de serveur !</h2>
 				<div th:case="*">
@@ -24,6 +24,7 @@
 								<th>IP</th>
 								<th>Login</th>
 								<th>Mot de passe</th>
+								<th>Actions</th>								
 							</tr>
 						</thead>
 
